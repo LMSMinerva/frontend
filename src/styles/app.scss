@@ -1,14 +1,13 @@
 @import 'app.css';
 
 ::-webkit-scrollbar {
-    @apply w-2.5 h-2.5;
-   
+	@apply h-2.5 w-2.5;
 }
 
 ::-webkit-scrollbar-track {
-    @apply bg-transparent
+	@apply bg-transparent;
 }
- 
+
 ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-zinc-400 border-[1px] border-transparent border-solid bg-clip-padding;
+	@apply rounded-full border-[1px] border-solid border-transparent bg-zinc-400 bg-clip-padding;
 }
