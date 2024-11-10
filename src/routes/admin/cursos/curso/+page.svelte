@@ -33,7 +33,7 @@
 	const df = new DateFormatter('en-US', { dateStyle: 'long' });
 </script>
 
-<main class="space-y-6 px-6">
+<main class="space-y-6 px-36">
 	<div class="flex items-center justify-between">
 		<h2 class="text-2xl font-bold">Nuevo Curso</h2>
 		<Button variant="link" href="/admin/cursos">
