@@ -15,7 +15,7 @@ const config = {
 		alias: {
 			$lib: './src/lib',
 			$styles: './src/styles',
-			$components: './src/components',
+			$components: './src/lib/components'
 		}
 	}
 };
