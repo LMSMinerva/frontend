@@ -20,7 +20,7 @@
 			{'Minerva' + (page ? ` - ${page}` : '')}
 		</h1>
 		<Separator orientation="vertical" />
-		<a class="text-sm font-medium" href="/">Cursos</a>
+		<a class="text-sm font-medium" href="/admin/cursos">Cursos</a>
 	</div>
 
 	<nav class="flex items-center space-x-4">
