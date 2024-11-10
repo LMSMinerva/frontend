@@ -12,12 +12,13 @@
 	import 'bootstrap-icons/font/bootstrap-icons.min.css';
 	import * as Table from '$lib/components/ui/table';
 	import { Button } from '$lib/components/ui/button';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 </script>
 
 <main class="space-y-4 px-6">
 	<div class="flex items-center justify-between">
 		<h2 class="text-2xl font-bold">Cursos</h2>
-		<Button>
+		<Button href="/admin/cursos/curso">
 			<span>Nuevo Curso</span>
 			<i class="bi bi-plus-lg"></i>
 		</Button>
@@ -45,14 +46,23 @@
 						<Table.Cell>{course.startDate}</Table.Cell>
 						<Table.Cell>{course.endDate}</Table.Cell>
 						<Table.Cell>
-							<div class="flex gap-x-4">
-								<Button variant="ghost">
-									<i class="bi bi-pencil-square text-base"></i>
-								</Button>
-								<Button variant="destructive">
-									<i class="bi bi-trash text-base"></i>
-								</Button>
-							</div>
+							<DropdownMenu.Root>
+								<DropdownMenu.Trigger>
+									<Button variant="ghost" class="h-8 w-8 p-0">
+										<i class="bi bi-three-dots"></i>
+									</Button>
+								</DropdownMenu.Trigger>
+								<DropdownMenu.Content align="end">
+									<DropdownMenu.Item>
+										<i class="bi bi-pencil-square text-base"></i>
+										<span>Editar</span>
+									</DropdownMenu.Item>
+									<DropdownMenu.Item class="bg-destructive/80 text-white hover:bg-destructive">
+										<i class="bi bi-trash text-base"></i>
+										<span>Eliminar</span>
+									</DropdownMenu.Item>
+								</DropdownMenu.Content>
+							</DropdownMenu.Root>
 						</Table.Cell>
 					</Table.Row>
 				{/each}
