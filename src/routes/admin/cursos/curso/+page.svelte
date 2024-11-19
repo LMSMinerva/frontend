@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Curso } from '$lib/types';
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
 	type Props = {
 		data: PageData;
 	};
 	let { data }: Props = $props();
-
-	function handleSubmit() {}
 
 	import 'bootstrap-icons/font/bootstrap-icons.min.css';
 	import * as Card from '$lib/components/ui/card';
@@ -18,13 +17,14 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Calendar } from '$lib/components/ui/calendar/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
 
 	const curso: Curso = $state({
 		id: 0,
 		name: '',
 		alias: '',
 		category: '',
-		visibility: false,
+		visibility: true,
 		description: '',
 		format: '',
 		id_instructor: '',
@@ -32,8 +32,35 @@
 		creation_date: ''
 	});
 
-	import { DateFormatter, type DateValue, getLocalTimeZone } from '@internationalized/date';
-	const df = new DateFormatter('en-US', { dateStyle: 'long' });
+	import { goto } from '$app/navigation';
+	import { getCurrentLocaleDate } from '$lib/utils/tools';
+	import { toast } from 'svelte-sonner';
+
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
+		curso.creation_date = getCurrentLocaleDate();
+
+		try {
+			const response = await fetch(`${PUBLIC_API_BASE_URL}/courses/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(curso)
+			});
+
+			if (response.ok) {
+				const result: Curso = await response.json();
+				toast.success(`Curso guardado exitosamente. ID: ${result.id}, Nombre: ${result.alias}`);
+				await goto('/admin/cursos');
+			} else {
+				const error = await response.json();
+				toast.error(`Error: ${error.message}`);
+			}
+		} catch (error) {
+			toast.error(`Error: ${(error as Error).message}`);
+		}
+	}
 </script>
 
 <main class="space-y-6 px-36">
@@ -70,10 +97,10 @@
 								{curso.category || 'Seleccione una categoría'}
 							</Select.Trigger>
 							<Select.Content>
-								<Select.Item value="technology">Tecnología</Select.Item>
-								<Select.Item value="business">Negocios</Select.Item>
-								<Select.Item value="design">Diseño</Select.Item>
-								<Select.Item value="marketing">Marketing</Select.Item>
+								<Select.Item value="Tecnología">Tecnología</Select.Item>
+								<Select.Item value="Negocios">Negocios</Select.Item>
+								<Select.Item value="Diseño">Diseño</Select.Item>
+								<Select.Item value="Marketing">Marketing</Select.Item>
 							</Select.Content>
 						</Select.Root>
 					</div>
@@ -109,9 +136,9 @@
 								{curso.format || 'Seleccione el formato del curso'}
 							</Select.Trigger>
 							<Select.Content>
-								<Select.Item value="online">En línea</Select.Item>
-								<Select.Item value="blended">Semipresencial</Select.Item>
-								<Select.Item value="face-to-face">Presencial</Select.Item>
+								<Select.Item value="En línea">En línea</Select.Item>
+								<Select.Item value="Semipresencial">Semipresencial</Select.Item>
+								<Select.Item value="Presencial">Presencial</Select.Item>
 							</Select.Content>
 						</Select.Root>
 					</div>
@@ -124,3 +151,5 @@
 		</form>
 	</section>
 </main>
+
+<Toaster />
