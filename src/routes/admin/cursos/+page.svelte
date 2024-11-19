@@ -13,6 +13,7 @@
 	import * as Table from '$lib/components/ui/table';
 	import { Button } from '$lib/components/ui/button';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 </script>
 
 <main class="space-y-4 px-6">
@@ -29,10 +30,10 @@
 				<Table.Row>
 					<Table.Head>Nombre</Table.Head>
 					<Table.Head>Nombre Corto</Table.Head>
+					<Table.Head>Descripción</Table.Head>
 					<Table.Head>Categoría</Table.Head>
 					<Table.Head>Visibilidad</Table.Head>
-					<Table.Head>Fecha de Inicio</Table.Head>
-					<Table.Head>Fecha de Fin</Table.Head>
+					<Table.Head>Fecha de creacion</Table.Head>
 					<Table.Head>Acciones</Table.Head>
 				</Table.Row>
 			</Table.Header>
@@ -40,11 +41,11 @@
 				{#each courses as course (course.id)}
 					<Table.Row>
 						<Table.Cell>{course.name}</Table.Cell>
-						<Table.Cell>{course.shortName}</Table.Cell>
+						<Table.Cell>{course.alias}</Table.Cell>
+						<Table.Cell>{course.description}</Table.Cell>
 						<Table.Cell>{course.category}</Table.Cell>
 						<Table.Cell>{course.visibility}</Table.Cell>
-						<Table.Cell>{course.startDate}</Table.Cell>
-						<Table.Cell>{course.endDate}</Table.Cell>
+						<Table.Cell>{course.creation_date}</Table.Cell>
 						<Table.Cell>
 							<DropdownMenu.Root>
 								<DropdownMenu.Trigger>
@@ -58,8 +59,32 @@
 										<span>Editar</span>
 									</DropdownMenu.Item>
 									<DropdownMenu.Item class="bg-destructive/80 text-white hover:bg-destructive">
-										<i class="bi bi-trash text-base"></i>
-										<span>Eliminar</span>
+										<Dialog.Root>
+											<Dialog.Trigger>
+												<i class="bi bi-trash text-base"></i>
+												<span>Eliminar</span>
+											</Dialog.Trigger>
+											<Dialog.Content>
+												<Dialog.Header>
+													<Dialog.Title>Eliminar curso</Dialog.Title>
+													<Dialog.Description>
+														Esta acción no se puede deshacer. Esto eliminará permanentemente el
+														curso y removerá todos sus datos.
+													</Dialog.Description>
+												</Dialog.Header>
+												<div>
+													<p>
+														¿Estás seguro de que deseas eliminar el curso: <strong
+															>{course.alias}</strong
+														>?
+													</p>
+												</div>
+												<Dialog.Footer>
+													<Button type="submit" variant="secondary">Cancelar</Button>
+													<Button type="submit" variant="destructive">Eliminar</Button>
+												</Dialog.Footer>
+											</Dialog.Content>
+										</Dialog.Root>
 									</DropdownMenu.Item>
 								</DropdownMenu.Content>
 							</DropdownMenu.Root>

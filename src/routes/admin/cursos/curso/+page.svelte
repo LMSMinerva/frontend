@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Curso } from '$lib/types';
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
 	type Props = {
 		data: PageData;
 	};
 	let { data }: Props = $props();
-
-	function handleSubmit() {}
 
 	import 'bootstrap-icons/font/bootstrap-icons.min.css';
 	import * as Card from '$lib/components/ui/card';
@@ -18,19 +17,50 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Calendar } from '$lib/components/ui/calendar/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
 
 	const curso: Curso = $state({
-		id: 123,
+		id: 0,
 		name: '',
-		shortName: '',
+		alias: '',
 		category: '',
-		visibility: '',
-		startDate: '',
-		endDate: ''
+		visibility: true,
+		description: '',
+		format: '',
+		id_instructor: '',
+		total_students_enrolled: 0,
+		creation_date: ''
 	});
 
-	import { DateFormatter, type DateValue, getLocalTimeZone } from '@internationalized/date';
-	const df = new DateFormatter('en-US', { dateStyle: 'long' });
+	import { goto } from '$app/navigation';
+	import { getCurrentLocaleDate } from '$lib/utils/tools';
+	import { toast } from 'svelte-sonner';
+
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
+		curso.creation_date = getCurrentLocaleDate();
+
+		try {
+			const response = await fetch(`${PUBLIC_API_BASE_URL}/courses/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(curso)
+			});
+
+			if (response.ok) {
+				const result: Curso = await response.json();
+				toast.success(`Curso guardado exitosamente. ID: ${result.id}, Nombre: ${result.alias}`);
+				await goto('/admin/cursos');
+			} else {
+				const error = await response.json();
+				toast.error(`Error: ${error.message}`);
+			}
+		} catch (error) {
+			toast.error(`Error: ${(error as Error).message}`);
+		}
+	}
 </script>
 
 <main class="space-y-6 px-36">
@@ -53,24 +83,24 @@
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 						<div class="space-y-2">
 							<Label for="name">Nombre completo</Label>
-							<Input id="name" name="name" value={curso.name} />
+							<Input id="name" name="name" bind:value={curso.name} />
 						</div>
 						<div class="space-y-2">
-							<Label for="shortName">Nombre corto</Label>
-							<Input id="shortName" name="shortName" value={curso.shortName} />
+							<Label for="alias">Nombre corto</Label>
+							<Input id="alias" name="alias" bind:value={curso.alias} />
 						</div>
 					</div>
 					<div class="space-y-2">
 						<Label for="category">Categoría</Label>
-						<Select.Root type="single">
+						<Select.Root type="single" bind:value={curso.category}>
 							<Select.Trigger>
-								{'Seleccione una categoría'}
+								{curso.category || 'Seleccione una categoría'}
 							</Select.Trigger>
 							<Select.Content>
-								<Select.Item value="technology">Tecnología</Select.Item>
-								<Select.Item value="business">Negocios</Select.Item>
-								<Select.Item value="design">Diseño</Select.Item>
-								<Select.Item value="marketing">Marketing</Select.Item>
+								<Select.Item value="Tecnología">Tecnología</Select.Item>
+								<Select.Item value="Negocios">Negocios</Select.Item>
+								<Select.Item value="Diseño">Diseño</Select.Item>
+								<Select.Item value="Marketing">Marketing</Select.Item>
 							</Select.Content>
 						</Select.Root>
 					</div>
@@ -85,89 +115,32 @@
 				<Card.Content class="space-y-4">
 					<div class="space-y-2">
 						<Label for="visibility">Visibilidad</Label>
-						<Select.Root type="single">
+						<Select.Root type="single" bind:value={curso.visibility}>
 							<Select.Trigger>
-								{'Seleccione la visibilidad'}
+								{curso.visibility ? 'Público' : 'Privado'}
 							</Select.Trigger>
 							<Select.Content>
-								<Select.Item value="public">Público</Select.Item>
-								<Select.Item value="private">Privado</Select.Item>
+								<Select.Item value={true}>Público</Select.Item>
+								<Select.Item value={false}>Privado</Select.Item>
 							</Select.Content>
 						</Select.Root>
 					</div>
 					<div class="space-y-2">
 						<Label for="description">Descripción</Label>
-						<Textarea id="description" name="description" />
+						<Textarea id="description" name="description" bind:value={curso.description} />
 					</div>
 					<div class="space-y-2">
 						<Label for="format">Formato/Tipo de curso</Label>
-						<Select.Root type="single">
+						<Select.Root type="single" bind:value={curso.format}>
 							<Select.Trigger>
-								{'Seleccione el formato del curso'}
+								{curso.format || 'Seleccione el formato del curso'}
 							</Select.Trigger>
 							<Select.Content>
-								<Select.Item value="online">En línea</Select.Item>
-								<Select.Item value="blended">Semipresencial</Select.Item>
-								<Select.Item value="face-to-face">Presencial</Select.Item>
+								<Select.Item value="En línea">En línea</Select.Item>
+								<Select.Item value="Semipresencial">Semipresencial</Select.Item>
+								<Select.Item value="Presencial">Presencial</Select.Item>
 							</Select.Content>
 						</Select.Root>
-					</div>
-				</Card.Content>
-			</Card.Root>
-
-			<Card.Root>
-				<Card.Header>
-					<Card.Title>Programación</Card.Title>
-					<Card.Description>Establezca las fechas de inicio y fin del curso</Card.Description>
-				</Card.Header>
-				<Card.Content class="space-y-4">
-					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-						<div class="flex flex-col space-y-2">
-							<Label for="startDate">Fecha de inicio</Label>
-							<Popover.Root>
-								<Popover.Trigger>
-									<Button
-										variant={'outline'}
-										class={`w-full justify-start text-left font-normal ${
-											!curso.startDate && 'text-muted-foreground'
-										}`}
-									>
-										<i class="bi bi-calendar-event"></i>
-										<span>
-											{curso.startDate
-												? df.format(curso.startDate as unknown as Date)
-												: 'Seleccione una fecha'}
-										</span>
-									</Button>
-								</Popover.Trigger>
-								<Popover.Content class="w-auto p-0">
-									<Calendar type="single" />
-								</Popover.Content>
-							</Popover.Root>
-						</div>
-						<div class="flex flex-col space-y-2">
-							<Label class="block" for="endDate">Fecha de fin</Label>
-							<Popover.Root>
-								<Popover.Trigger>
-									<Button
-										variant={'outline'}
-										class={`w-full justify-start text-left font-normal ${
-											!curso.endDate && 'text-muted-foreground'
-										}`}
-									>
-										<i class="bi bi-calendar-event"></i>
-										<span>
-											{curso.endDate
-												? df.format(curso.endDate as unknown as Date)
-												: 'Seleccione una fecha'}
-										</span>
-									</Button>
-								</Popover.Trigger>
-								<Popover.Content class="w-auto p-0">
-									<Calendar type="single" />
-								</Popover.Content>
-							</Popover.Root>
-						</div>
 					</div>
 				</Card.Content>
 			</Card.Root>
@@ -178,3 +151,5 @@
 		</form>
 	</section>
 </main>
+
+<Toaster />
