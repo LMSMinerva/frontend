@@ -29,10 +29,10 @@
 				<Table.Row>
 					<Table.Head>Nombre</Table.Head>
 					<Table.Head>Nombre Corto</Table.Head>
+					<Table.Head>Descripción</Table.Head>
 					<Table.Head>Categoría</Table.Head>
 					<Table.Head>Visibilidad</Table.Head>
-					<Table.Head>Fecha de Inicio</Table.Head>
-					<Table.Head>Fecha de Fin</Table.Head>
+					<Table.Head>Fecha de creacion</Table.Head>
 					<Table.Head>Acciones</Table.Head>
 				</Table.Row>
 			</Table.Header>
@@ -40,11 +40,11 @@
 				{#each courses as course (course.id)}
 					<Table.Row>
 						<Table.Cell>{course.name}</Table.Cell>
-						<Table.Cell>{course.shortName}</Table.Cell>
+						<Table.Cell>{course.alias}</Table.Cell>
+						<Table.Cell>{course.description}</Table.Cell>
 						<Table.Cell>{course.category}</Table.Cell>
 						<Table.Cell>{course.visibility}</Table.Cell>
-						<Table.Cell>{course.startDate}</Table.Cell>
-						<Table.Cell>{course.endDate}</Table.Cell>
+						<Table.Cell>{course.creation_date}</Table.Cell>
 						<Table.Cell>
 							<DropdownMenu.Root>
 								<DropdownMenu.Trigger>
