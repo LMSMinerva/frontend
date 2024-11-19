@@ -1,11 +1,14 @@
 export type Curso = {
 	id: number;
 	name: string;
-	shortName: string;
+	alias: string;
 	category: string;
-	visibility: string;
-	startDate: string;
-	endDate: string;
+	visibility: boolean;
+	description: string;
+	format: string;
+	id_instructor: string;
+	total_students_enrolled: number;
+	creation_date: string;
 };
 
 export type Usuario = {
