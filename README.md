@@ -1,38 +1,35 @@
-# sv
+# MinervaLMS Frontend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+...
 
-## Creating a project
+## Documentación
 
-If you're seeing this, you've probably already done this step. Congrats!
+...
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Ejecutar Localmente
 
-# create a new project in my-app
-npx sv create my-app
-```
+> Para ejecutar este proyecto, necesitarás agregar las siguientes variables de entorno a tu archivo .env: `PUBLIC_API_BASE_URL`
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Clona el proyecto
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+  git clone https://github.com/LMSMinerva/frontend
 ```
 
-## Building
-
-To create a production version of your app:
+Ve al directorio del proyecto
 
 ```bash
-npm run build
+  cd frontend
 ```
 
-You can preview the production build with `npm run preview`.
+Instala las dependencias
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```bash
+  pnpm install
+```
+
+Inicia el servidor
+
+```bash
+  npm run dev
+```
