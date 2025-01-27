@@ -17,7 +17,11 @@ const config = {
 			$styles: './src/styles',
 			$components: './src/lib/components',
 			$utils: './src/lib/utils',
-			$types: './src/lib/types'
+			$types: './src/lib/types',
+			$actions: './src/lib/actions',
+			$client: './src/lib/client',
+			$server: './src/lib/server',
+			$stores: './src/lib/stores',
 		}
 	}
 };
