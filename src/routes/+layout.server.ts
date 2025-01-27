@@ -1,8 +1,8 @@
 import type { LayoutServerLoad } from './$types';
-import type { Usuario } from '$lib/types';
+import type { User } from '$types/user';
 
 export const load = (async () => {
-	const user: Usuario = {
+	const user: User = {
 		username: 'jlargo',
 		fullname: 'Juan Carlos L',
 		email: 'jlargo@example.com',

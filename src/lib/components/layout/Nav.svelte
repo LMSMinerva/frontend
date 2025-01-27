@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Usuario } from '$lib/types';
+	import type { User } from '$types/user';
 
 	type Props = {
-		user: Usuario;
+		user: User;
 		page: string;
 	};
 
@@ -31,7 +31,7 @@
 					<Avatar.Fallback
 						>{user.fullname
 							.split(' ')
-							.map((name) => name[0])
+							.map((name: string) => name[0])
 							.join('')}</Avatar.Fallback
 					>
 				</Avatar.Root>

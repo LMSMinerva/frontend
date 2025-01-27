@@ -1,4 +1,4 @@
-export type Curso = {
+export type Course = {
 	id: number;
 	name: string;
 	alias: string;
@@ -9,11 +9,4 @@ export type Curso = {
 	id_instructor: string;
 	total_students_enrolled: number;
 	creation_date: string;
-};
-
-export type Usuario = {
-	username: string;
-	fullname: string;
-	email: string;
-	avatar: string;
 };

@@ -1,6 +1,6 @@
-import type { Curso } from '$lib/types';
+import type { Course } from '$types/course';
 
-export function mockCurso(): Curso {
+export function mockCurso(): Course {
 	return {
 		id: 1,
 		name: 'Curso 1',
@@ -15,7 +15,7 @@ export function mockCurso(): Curso {
 	};
 }
 
-export function mockCursos(): Curso[] {
+export function mockCursos(): Course[] {
 	return [
 		{
 			id: 1,
