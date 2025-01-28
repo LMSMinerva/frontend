@@ -1,3 +1,5 @@
+import type { Institution } from "$types/institution";
+
 export type Course = {
 	id: string;
 	name: string;
@@ -13,4 +15,16 @@ export type Course = {
 	rating: string;
 	category: string;
 	institution: string;
+};
+
+export type UserCourse = {
+	image: string;
+	name: string;
+	alias: string;
+	reviews: number;
+	comments: number;
+	rating: string;
+
+	institution: Institution;
+	progress: number;
 };
