@@ -3,6 +3,7 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import CourseCard from '$components/dashboard/CourseCard.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { onMount } from 'svelte';
 
 	type Props = {
 		title: string;
@@ -10,6 +11,13 @@
 	};
 
 	const { title, userCourses }: Props = $props();
+	let visibleCourses: UserCourse[] = $state(userCourses.slice(0, 3));
+	let showAll = $state(false);
+
+	function toggleShowAll() {
+		showAll = !showAll;
+		visibleCourses = showAll ? userCourses : userCourses.slice(0, 3);
+	}
 </script>
 
 <Collapsible.Root open={true}>
@@ -23,9 +31,17 @@
 	</Collapsible.Trigger>
 	<Collapsible.Content class="mb-12 mt-8">
 		<div class="grid grid-cols-3 gap-8">
-			{#each userCourses as course}
+			{#each visibleCourses as course}
 				<CourseCard userCourse={course} />
 			{/each}
 		</div>
+
+		{#if userCourses.length > 3}
+			<div class="mt-8 flex justify-center">
+				<Button onclick={toggleShowAll}>
+					{showAll ? 'Mostrar menos' : 'Mostrar más'}
+				</Button>
+			</div>
+		{/if}
 	</Collapsible.Content>
 </Collapsible.Root>
