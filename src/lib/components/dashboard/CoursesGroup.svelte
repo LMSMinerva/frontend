@@ -12,12 +12,12 @@
 	const { title, userCourses }: Props = $props();
 </script>
 
-<Collapsible.Root>
+<Collapsible.Root open={true}>
 	<Collapsible.Trigger
 		class="flex w-full items-center justify-between rounded-md px-4 py-1 hover:bg-indigo-100"
 	>
 		<h3 class="text-xl font-bold">{title}</h3>
-		<Button>
+		<Button variant="ghost">
 			<i class="bi bi-chevron-down"></i>
 		</Button>
 	</Collapsible.Trigger>
