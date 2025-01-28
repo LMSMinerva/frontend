@@ -1,12 +1,16 @@
 export type Course = {
-	id: number;
+	id: string;
 	name: string;
 	alias: string;
-	category: string;
-	visibility: boolean;
+	active: true,
 	description: string;
-	format: string;
-	id_instructor: string;
-	total_students_enrolled: number;
 	creation_date: string;
+	last_update: string;
+	modules: number;
+	assessment_items: number;
+	reviews: number;
+	comments: number;
+	rating: string;
+	category: string;
+	institution: string;
 };
