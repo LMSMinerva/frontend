@@ -1,10 +1,10 @@
-import type { Institution } from "$types/institution";
+import type { Institution } from '$types/institution';
 
 export type Course = {
 	id: string;
 	name: string;
 	alias: string;
-	active: true,
+	active: true;
 	description: string;
 	creation_date: string;
 	last_update: string;

@@ -21,7 +21,7 @@
 			<i class="bi bi-chevron-down"></i>
 		</Button>
 	</Collapsible.Trigger>
-	<Collapsible.Content class="mt-8 mb-12">
+	<Collapsible.Content class="mb-12 mt-8">
 		<div class="grid grid-cols-3 gap-8">
 			{#each userCourses as course}
 				<CourseCard userCourse={course} />

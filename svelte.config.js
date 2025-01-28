@@ -21,7 +21,7 @@ const config = {
 			$actions: './src/lib/actions',
 			$client: './src/lib/client',
 			$server: './src/lib/server',
-			$stores: './src/lib/stores',
+			$stores: './src/lib/stores'
 		}
 	}
 };

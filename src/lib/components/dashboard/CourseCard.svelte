@@ -10,13 +10,18 @@
 	const { userCourse }: Props = $props();
 
 	function getInstitutionAvatarFallback(institution: string) {
-		const words = institution.split(" ");
-		return words.slice(0, 2).map(w => w[0].toUpperCase()).join("");
+		const words = institution.split(' ');
+		return words
+			.slice(0, 2)
+			.map((w) => w[0].toUpperCase())
+			.join('');
 	}
 </script>
 
 <div class="w-max-content flex flex-col gap-4 rounded-lg bg-white p-4 shadow-md">
-	<div class="flex items-center justify-center h-[153px] w-full object-cover rounded-md bg-indigo-100">
+	<div
+		class="flex h-[153px] w-full items-center justify-center rounded-md bg-indigo-100 object-cover"
+	>
 		{#if userCourse.image !== ''}
 			<img src={userCourse.image} alt={userCourse.name} class="h-full w-full" />
 		{:else}
@@ -28,25 +33,27 @@
 		<div class="flex items-center gap-2">
 			<Avatar.Root class="size-8 border border-zinc-800">
 				<Avatar.Image src={userCourse.institution.image} alt="@shadcn" />
-				<Avatar.Fallback class="text-xs font-semibold text-zinc-500">{getInstitutionAvatarFallback(userCourse.institution.name)}</Avatar.Fallback>
+				<Avatar.Fallback class="text-xs font-semibold text-zinc-500"
+					>{getInstitutionAvatarFallback(userCourse.institution.name)}</Avatar.Fallback
+				>
 			</Avatar.Root>
 			<span class="font-semibold text-zinc-500">{userCourse.institution.name}</span>
 		</div>
 
-		<h5 class="font-semibold text-lg">{userCourse.name}</h5>
+		<h5 class="text-lg font-semibold">{userCourse.name}</h5>
 
 		<div class="flex items-center justify-end gap-3 text-zinc-500">
-			<span class="flex gap-1 items-center">
+			<span class="flex items-center gap-1">
 				<i class="bi bi-award"></i>
 				<span>{userCourse.reviews}</span>
 			</span>
 
-			<span class="flex gap-1 items-center">
+			<span class="flex items-center gap-1">
 				<i class="bi bi-chat-left"></i>
 				<span>{userCourse.comments}</span>
 			</span>
 
-			<span class="flex gap-1 items-center">
+			<span class="flex items-center gap-1">
 				<i class="bi bi-star"></i>
 				<span>{userCourse.rating}</span>
 			</span>

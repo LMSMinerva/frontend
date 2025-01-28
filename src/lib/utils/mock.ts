@@ -73,12 +73,12 @@ export function getUserCourses() {
 	const completed: UserCourse[] = [];
 	const availiable: UserCourse[] = [];
 	const mockCourses = [
-		{ name: "Introducción a la Programación", alias: "intro-programacion" },
-		{ name: "Desarrollo Web con Vue.js", alias: "vue-desarrollo-web" },
-		{ name: "Bases de Datos SQL", alias: "bases-datos-sql" },
-		{ name: "Machine Learning Básico", alias: "machine-learning-basico" },
-		{ name: "Ciberseguridad para Principiantes", alias: "ciberseguridad-inicial" },
-		{ name: "Diseño UX/UI", alias: "diseno-ux-ui" }
+		{ name: 'Introducción a la Programación', alias: 'intro-programacion' },
+		{ name: 'Desarrollo Web con Vue.js', alias: 'vue-desarrollo-web' },
+		{ name: 'Bases de Datos SQL', alias: 'bases-datos-sql' },
+		{ name: 'Machine Learning Básico', alias: 'machine-learning-basico' },
+		{ name: 'Ciberseguridad para Principiantes', alias: 'ciberseguridad-inicial' },
+		{ name: 'Diseño UX/UI', alias: 'diseno-ux-ui' }
 	];
 
 	for (let i = 0; i < 6; i++) {
@@ -92,12 +92,12 @@ export function getUserCourses() {
 			rating: (Math.random() * 5).toFixed(1),
 			institution: {
 				name: [
-					"Universidad Nacional Autónoma de México",
-					"Universidad de Buenos Aires",
-					"Universidad Complutense de Madrid",
-					"Pontificia Universidad Católica de Chile",
-					"Universidad de los Andes",
-					"Universidad Politécnica de Valencia"
+					'Universidad Nacional Autónoma de México',
+					'Universidad de Buenos Aires',
+					'Universidad Complutense de Madrid',
+					'Pontificia Universidad Católica de Chile',
+					'Universidad de los Andes',
+					'Universidad Politécnica de Valencia'
 				][i],
 				image: ``
 			},
@@ -112,10 +112,10 @@ export function getUserCourses() {
 			availiable.push(userCourse);
 		}
 	}
-	
+
 	return {
 		inProgress,
 		completed,
-		availiable,
-	}
+		availiable
+	};
 }
