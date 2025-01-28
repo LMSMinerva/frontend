@@ -1,21 +1,13 @@
 <script lang="ts">
-	import type { Course } from '$lib/types/course';
-
-	import * as Card from '$lib/components/ui/card/index.js';
+	import type { UserCourse } from '$types/course';
 	import { Progress } from '$lib/components/ui/progress/index.js';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 
 	type Props = {
-		name: string;
-		image: string;
-		institutionImage?: string;
-		institution: string;
-		progress: number;
-		finished: boolean;
+		userCourse: UserCourse;
 	};
-
-	const { name, image, institution, progress, finished, institutionImage }: Props = $props();
+	const { userCourse }: Props = $props();
 
 	function getInstitutionAvatarFallback(institution: string) {
 		const words = institution.split(" ");
@@ -25,30 +17,45 @@
 
 <div class="w-max-content flex flex-col gap-4 rounded-lg bg-white p-4 shadow-md">
 	<div class="flex items-center justify-center h-[153px] w-full object-cover rounded-md bg-indigo-100">
-		{#if image !== ''}
-			<img src={image} alt={name} class="h-full w-full" />
+		{#if userCourse.image !== ''}
+			<img src={userCourse.image} alt={userCourse.name} class="h-full w-full" />
 		{:else}
-			<img src="/course-card-img-placeholder.svg" alt={name} class="size-24" />
+			<img src="/course-card-img-placeholder.svg" alt={userCourse.name} class="size-24" />
 		{/if}
 	</div>
 
 	<div class="flex flex-col gap-3">
 		<div class="flex items-center gap-2">
 			<Avatar.Root class="size-8 border border-zinc-800">
-				<Avatar.Image src={institutionImage} alt="@shadcn" />
-				<Avatar.Fallback class="text-xs font-semibold text-zinc-500">{getInstitutionAvatarFallback(institution)}</Avatar.Fallback>
+				<Avatar.Image src={userCourse.institution.image} alt="@shadcn" />
+				<Avatar.Fallback class="text-xs font-semibold text-zinc-500">{getInstitutionAvatarFallback(userCourse.institution.name)}</Avatar.Fallback>
 			</Avatar.Root>
-			<span>{institution}</span>
+			<span class="font-semibold text-zinc-500">{userCourse.institution.name}</span>
 		</div>
 
-		<h5>{name}</h5>
+		<h5 class="font-semibold text-lg">{userCourse.name}</h5>
 
-		<div class="flex items-center justify-end"></div>
+		<div class="flex items-center justify-end gap-3 text-zinc-500">
+			<span class="flex gap-1 items-center">
+				<i class="bi bi-award"></i>
+				<span>{userCourse.reviews}</span>
+			</span>
+
+			<span class="flex gap-1 items-center">
+				<i class="bi bi-chat-left"></i>
+				<span>{userCourse.comments}</span>
+			</span>
+
+			<span class="flex gap-1 items-center">
+				<i class="bi bi-star"></i>
+				<span>{userCourse.rating}</span>
+			</span>
+		</div>
 	</div>
 
-	{#if finished}
+	{#if userCourse.progress === 100}
 		<Button class="w-full">Descargar certificado</Button>
 	{:else}
-		<Progress value={progress} />
+		<Progress class="bg-indigo-50" value={userCourse.progress} />
 	{/if}
 </div>

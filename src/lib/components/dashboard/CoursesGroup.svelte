@@ -1,24 +1,15 @@
 <script lang="ts">
+	import type { UserCourse } from '$types/course';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import CourseCard from '$components/dashboard/CourseCard.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 
-	type UserCourse = {
-		name: string;
-		image: string;
-		institution: string;
-		institutionImage?: string;
-		progress: number;
-		finished: boolean;
-	};
-
 	type Props = {
 		title: string;
-		courses: UserCourse[];
-		
+		userCourses: UserCourse[];
 	};
 
-	const { title, courses }: Props = $props();
+	const { title, userCourses }: Props = $props();
 </script>
 
 <Collapsible.Root>
@@ -32,8 +23,8 @@
 	</Collapsible.Trigger>
 	<Collapsible.Content class="mt-8 mb-12">
 		<div class="grid grid-cols-3 gap-8">
-			{#each courses as course}
-				<CourseCard {...course} />
+			{#each userCourses as course}
+				<CourseCard userCourse={course} />
 			{/each}
 		</div>
 	</Collapsible.Content>

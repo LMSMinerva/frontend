@@ -1,136 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
-	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
-	import CourseCard from '$components/dashboard/CourseCard.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
-
 	import CoursesGroup from '$lib/components/dashboard/CoursesGroup.svelte';
+	import type { UserCourse } from '$types/course';
+	import type { Institution } from '$types/institution';
+	import { getUserCourses } from '$lib/utils/mock';
 
-	type UserCourse = {
-		name: string;
-		image: string;
-		institution: string;
-		institutionImage?: string;
-		progress: number;
-		finished: boolean;
-	};
-
-	const userCourses1: UserCourse[] = [
-		{
-			name: 'Fundamentos de programacion',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 80,
-			finished: false
-		},
-		{
-			name: 'Algoritmos y Estructuras de Datos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 60,
-			finished: false
-		},
-		{
-			name: 'Bases de Datos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 45,
-			finished: false
-		},
-		{
-			name: 'Ingeniería de Software',
-			image: '',
-			institutionImage: 'https://github.com/shadcn.png',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 30,
-			finished: false
-		},
-		{
-			name: 'Redes de Computadores',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 90,
-			finished: false
-		},
-		{
-			name: 'Sistemas Operativos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 70,
-			finished: false
-		}
-	];
-
-	const userCourses2: UserCourse[] = [
-		{
-			name: 'Fundamentos de programacion',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 80,
-			finished: true
-		},
-		{
-			name: 'Algoritmos y Estructuras de Datos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 60,
-			finished: true
-		},
-		{
-			name: 'Bases de Datos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 45,
-			finished: true
-		}
-	];
-
-	const userCourses3: UserCourse[] = [
-		{
-			name: 'Fundamentos de programacion',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 80,
-			finished: false
-		},
-		{
-			name: 'Algoritmos y Estructuras de Datos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 60,
-			finished: false
-		},
-		{
-			name: 'Bases de Datos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 45,
-			finished: false
-		},
-		{
-			name: 'Ingeniería de Software',
-			image: '',
-			institutionImage: 'https://github.com/shadcn.png',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 30,
-			finished: false
-		},
-		{
-			name: 'Redes de Computadores',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 90,
-			finished: false
-		},
-		{
-			name: 'Sistemas Operativos',
-			image: '',
-			institution: 'Universidad Nacional de Colombia',
-			progress: 70,
-			finished: false
-		}
-	];
+	const { inProgress, completed, availiable } = getUserCourses();
 </script>
 
 <main class="flex flex-col gap-8 px-12">
@@ -138,9 +14,9 @@
 
 	<div class="grid grid-cols-12 gap-x-12">
 		<div class="col-span-8 flex flex-col gap-2">
-			<CoursesGroup title="En progreso" courses={userCourses1} />
-			<CoursesGroup title="Completados" courses={userCourses2} />
-			<CoursesGroup title="Disponibles" courses={userCourses3} />
+			<CoursesGroup title="En progreso" userCourses={inProgress} />
+			<CoursesGroup title="Completados" userCourses={completed} />
+			<CoursesGroup title="Disponibles" userCourses={availiable} />
 		</div>
 
 		<aside class="col-span-4 flex flex-col gap-8">
