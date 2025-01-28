@@ -12,6 +12,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import { Button } from "$lib/components/ui/button/index.js";
 </script>
 
 <header class="flex items-center justify-between border-b bg-white px-6 py-4">
@@ -24,6 +25,10 @@
 	</div>
 
 	<nav class="flex items-center space-x-4">
+		<Button variant="ghost" class="bg-indigo-50 size-11">
+			<i class="bi bi-bell"></i>
+		</Button>
+		<Separator orientation="vertical" />
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				<Avatar.Root class="size-11">
