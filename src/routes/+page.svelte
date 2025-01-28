@@ -26,6 +26,10 @@
 	];
 </script>
 
+<svelte:head>
+	<title>Mis cursos</title>
+</svelte:head>
+
 <main class="flex flex-col gap-8 px-12">
 	<h2 class="text-2xl font-semibold">Bienvenid@, {user.fullname}</h2>
 
