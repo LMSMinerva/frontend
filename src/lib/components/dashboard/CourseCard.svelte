@@ -9,7 +9,7 @@
 	type Props = {
 		name: string;
 		image: string;
-		institutionImage: string;
+		institutionImage?: string;
 		institution: string;
 		progress: number;
 		finished: boolean;
