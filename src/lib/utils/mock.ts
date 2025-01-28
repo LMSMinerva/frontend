@@ -81,7 +81,7 @@ export function getUserCourses() {
 		{ name: 'Diseño UX/UI', alias: 'diseno-ux-ui' }
 	];
 
-	for (let i = 0; i < 6; i++) {
+	for (let i = 0; i < 18; i++) {
 		const course = mockCourses[i % mockCourses.length];
 		const userCourse: UserCourse = {
 			image: ``,
@@ -98,15 +98,15 @@ export function getUserCourses() {
 					'Pontificia Universidad Católica de Chile',
 					'Universidad de los Andes',
 					'Universidad Politécnica de Valencia'
-				][i],
+				][i % 6],
 				image: ``
 			},
 			progress: Math.floor(Math.random() * 100)
 		};
 
-		if (i < 2) {
+		if (i < 6) {
 			inProgress.push(userCourse);
-		} else if (i < 4) {
+		} else if (i < 12) {
 			completed.push(userCourse);
 		} else {
 			availiable.push(userCourse);
