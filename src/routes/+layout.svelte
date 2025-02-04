@@ -12,7 +12,9 @@
 	let { children, data } = $props();
 
 	const accessToken = data.authToken;
+	const refreshToken = data.refreshToken;
 	storeAuth.setAccessToken(accessToken || '');
+	storeAuth.setRefreshToken(refreshToken || '');
 </script>
 
 <Nav user={data.user} page="Admin" />

@@ -1,16 +1,42 @@
 <script lang="ts">
-	let isLoading = $state(false);
-
 	import * as Card from '$lib/components/ui/card';
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
 
-	function onsubmit() {
+	type LoginForm = {
+		username: string;
+		password: string;
+	}
+
+
+	let isLoading = $state(false);
+	let form: HTMLFormElement;
+	const formData: LoginForm = $state({
+		username: '',
+		password: '',
+	});
+
+	async function onsubmit() {
 		isLoading = true;
-		setTimeout(() => {
-			isLoading = false;
-		}, 2000);
+
+		if (!formData.username || !formData.password) {
+			alert('Por favor, rellena todos los campos');
+		}
+
+		const username = document.createElement('input');
+		username.type = 'hidden';
+		username.name = 'username';
+		username.value = formData.username;
+		form.appendChild(username);
+
+		const password = document.createElement('input');
+		password.type = 'hidden';
+		password.name = 'password';
+		password.value = formData.password
+		form.appendChild(password);
+
+		form.submit();
 	}
 </script>
 
@@ -25,8 +51,8 @@
 		<Card.Content>
 			<form {onsubmit} class="space-y-4">
 				<div class="space-y-2">
-					<Label for="email">Correo Electrónico</Label>
-					<Input id="email" type="email" placeholder="m@example.com" required />
+					<Label for="email">Usuario / Correo Electrónico</Label>
+					<Input id="email" type="text" placeholder="m@example.com" bind:value={formData.username} required />
 				</div>
 				<div class="space-y-2">
 					<div class="flex items-center justify-between">
@@ -39,7 +65,7 @@
 							¿Olvidaste tu contraseña?
 						</Button>
 					</div>
-					<Input id="password" type="password" required />
+					<Input id="password" type="password" required bind:value={formData.password} />
 				</div>
 				<Button class="w-full font-semibold" type="submit" disabled={isLoading}>
 					{#if isLoading}
@@ -80,3 +106,5 @@
 		</Card.Footer>
 	</Card.Root>
 </div>
+
+<form method="post" bind:this={form}></form>

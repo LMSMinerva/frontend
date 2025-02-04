@@ -4,6 +4,7 @@ import type { Usuario } from '$lib/types';
 export const load = (async ({ cookies }) => {
 
 	const authToken = cookies.get('authToken');
+	const refreshToken = cookies.get('refreshToken');
 
 	const user: Usuario = {
 		username: 'jlargo',
@@ -15,6 +16,7 @@ export const load = (async ({ cookies }) => {
 
 	return {
 		user,
-		authToken
+		authToken,
+		refreshToken,
 	};
 }) satisfies LayoutServerLoad;
