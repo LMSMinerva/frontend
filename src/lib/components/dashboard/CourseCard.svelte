@@ -62,6 +62,8 @@
 
 	{#if userCourse.progress === 100}
 		<Button class="w-full">Descargar certificado</Button>
+	{:else if userCourse.progress === 0}
+		<Button class="w-full">Matricularme en el curso</Button>
 	{:else}
 		<Progress class="bg-indigo-50" value={userCourse.progress} />
 	{/if}

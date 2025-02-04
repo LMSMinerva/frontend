@@ -6,7 +6,7 @@
 	import type { Institution } from '$types/institution';
 	import { getUserCourses } from '$lib/utils/mock';
 
-	const { inProgress, completed, availiable } = getUserCourses();
+	const { inProgress, completed, available } = getUserCourses();
 	const { user } = data;
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 
@@ -37,7 +37,7 @@
 		<div class="col-span-8 flex flex-col gap-2">
 			<CoursesGroup title="En progreso" userCourses={inProgress} />
 			<CoursesGroup title="Completados" userCourses={completed} />
-			<CoursesGroup title="Disponibles" userCourses={availiable} />
+			<CoursesGroup title="Disponibles" userCourses={available} />
 		</div>
 
 		<aside class="col-span-4 flex flex-col gap-8">
