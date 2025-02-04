@@ -71,7 +71,7 @@ export function mockCursos(): Course[] {
 export function getUserCourses() {
 	const inProgress: UserCourse[] = [];
 	const completed: UserCourse[] = [];
-	const availiable: UserCourse[] = [];
+	const available: UserCourse[] = [];
 	const mockCourses = [
 		{ name: 'Introducción a la Programación', alias: 'intro-programacion' },
 		{ name: 'Desarrollo Web con Vue.js', alias: 'vue-desarrollo-web' },
@@ -107,15 +107,17 @@ export function getUserCourses() {
 		if (i < 6) {
 			inProgress.push(userCourse);
 		} else if (i < 12) {
+			userCourse.progress = 100;
 			completed.push(userCourse);
 		} else {
-			availiable.push(userCourse);
+			userCourse.progress = 0;
+			available.push(userCourse);
 		}
 	}
 
 	return {
 		inProgress,
 		completed,
-		availiable
+		available
 	};
 }
