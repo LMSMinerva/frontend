@@ -1,5 +1,17 @@
+import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
+
+export const load = (async ({ cookies }) => {
+
+    const authToken = cookies.get('authToken');
+
+    if (authToken) {
+        throw redirect(303, "/");
+    }
+
+    return {};
+}) satisfies PageServerLoad;
 
 export const actions = {
     default: async ({ request, cookies }) => {
