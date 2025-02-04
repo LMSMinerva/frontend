@@ -3,18 +3,21 @@ import type { UserCourse, Course } from '$types/course';
 export function mockCurso(): Course {
 	return {
 		id: 1,
-		name: 'Curso 1',
-		alias: 'C1',
-		category: 'Categoría 1',
-		visibility: true,
-		description: 'Descripción del curso 1',
-		format: 'Formato del curso 1',
-		id_instructor: 'Instructor 1',
-		total_students_enrolled: 10,
-		creation_date: '2021-01-01'
+		name: 'Curso de Ejemplo',
+		alias: 'curso-ejemplo',
+		active: true,
+		description: 'Descripción del curso de ejemplo',
+		creation_date: '2021-01-01',
+		last_update: '2021-06-01',
+		modules: 5,
+		assessment_items: 10,
+		reviews: 50,
+		comments: 20,
+		rating: '4.5',
+		category: 'Categoría de Ejemplo',
+		institution: 'Institución de Ejemplo'
 	};
 }
-
 export function mockCursos(): Course[] {
 	return [
 		{
