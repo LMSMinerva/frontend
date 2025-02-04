@@ -1,7 +1,8 @@
 import { apiBaseUrl } from "$lib/utils/constants";
+import { storeAuth } from "$lib/stores/auth";
 
 function getAuthToken(): string | null {
-    return "bWluZXJ2YTptaW5fbG1zMTIz";
+    return storeAuth.getAuthToken();
 }
 
 function createHeaders(options: RequestInit = {}): HeadersInit {
