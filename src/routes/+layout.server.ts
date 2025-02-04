@@ -1,5 +1,5 @@
 import type { LayoutServerLoad } from './$types';
-import type { Usuario } from '$lib/types';
+import type { User } from '$types/user';
 
 export const load = (async ({ cookies }) => {
 

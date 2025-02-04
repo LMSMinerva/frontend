@@ -1,6 +1,6 @@
-import type { Curso } from '$lib/types';
+import type { UserCourse, Course } from '$types/course';
 
-export function mockCurso(): Curso {
+export function mockCurso(): Course {
 	return {
 		id: 1,
 		name: 'Curso 1',
@@ -15,7 +15,7 @@ export function mockCurso(): Curso {
 	};
 }
 
-export function mockCursos(): Curso[] {
+export function mockCursos(): Course[] {
 	return [
 		{
 			id: 1,
@@ -66,4 +66,58 @@ export function mockCursos(): Curso[] {
 			creation_date: '2021-01-01'
 		}
 	];
+}
+
+export function getUserCourses() {
+	const inProgress: UserCourse[] = [];
+	const completed: UserCourse[] = [];
+	const available: UserCourse[] = [];
+	const mockCourses = [
+		{ name: 'Introducción a la Programación', alias: 'intro-programacion' },
+		{ name: 'Desarrollo Web con Vue.js', alias: 'vue-desarrollo-web' },
+		{ name: 'Bases de Datos SQL', alias: 'bases-datos-sql' },
+		{ name: 'Machine Learning Básico', alias: 'machine-learning-basico' },
+		{ name: 'Ciberseguridad para Principiantes', alias: 'ciberseguridad-inicial' },
+		{ name: 'Diseño UX/UI', alias: 'diseno-ux-ui' }
+	];
+
+	for (let i = 0; i < 18; i++) {
+		const course = mockCourses[i % mockCourses.length];
+		const userCourse: UserCourse = {
+			image: ``,
+			name: course.name,
+			alias: course.alias,
+			reviews: Math.floor(Math.random() * 100),
+			comments: Math.floor(Math.random() * 50),
+			rating: (Math.random() * 5).toFixed(1),
+			institution: {
+				name: [
+					'Universidad Nacional Autónoma de México',
+					'Universidad de Buenos Aires',
+					'Universidad Complutense de Madrid',
+					'Pontificia Universidad Católica de Chile',
+					'Universidad de los Andes',
+					'Universidad Politécnica de Valencia'
+				][i % 6],
+				image: ``
+			},
+			progress: Math.floor(Math.random() * 100)
+		};
+
+		if (i < 6) {
+			inProgress.push(userCourse);
+		} else if (i < 12) {
+			userCourse.progress = 100;
+			completed.push(userCourse);
+		} else {
+			userCourse.progress = 0;
+			available.push(userCourse);
+		}
+	}
+
+	return {
+		inProgress,
+		completed,
+		available
+	};
 }
