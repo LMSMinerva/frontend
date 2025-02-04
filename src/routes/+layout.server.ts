@@ -2,7 +2,6 @@ import type { LayoutServerLoad } from './$types';
 import type { User } from '$types/user';
 
 export const load = (async ({ cookies }) => {
-
 	const authToken = cookies.get('authToken');
 	const refreshToken = cookies.get('refreshToken');
 
@@ -17,6 +16,6 @@ export const load = (async ({ cookies }) => {
 	return {
 		user,
 		authToken,
-		refreshToken,
+		refreshToken
 	};
 }) satisfies LayoutServerLoad;

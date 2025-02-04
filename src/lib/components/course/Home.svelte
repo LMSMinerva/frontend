@@ -63,22 +63,22 @@
 				</p>
 			</div>
 
-            <div class="flex items-center gap-12 text-zinc-500">
-                <span class="flex items-center gap-1">
-                    <i class="bi bi-award"></i>
-                    <span>10</span>
-                </span>
-    
-                <span class="flex items-center gap-1">
-                    <i class="bi bi-chat-left"></i>
-                    <span>25</span>
-                </span>
-    
-                <span class="flex items-center gap-1">
-                    <i class="bi bi-star"></i>
-                    <span>4.5</span>
-                </span>
-            </div>
+			<div class="flex items-center gap-12 text-zinc-500">
+				<span class="flex items-center gap-1">
+					<i class="bi bi-award"></i>
+					<span>10</span>
+				</span>
+
+				<span class="flex items-center gap-1">
+					<i class="bi bi-chat-left"></i>
+					<span>25</span>
+				</span>
+
+				<span class="flex items-center gap-1">
+					<i class="bi bi-star"></i>
+					<span>4.5</span>
+				</span>
+			</div>
 		</div>
 
 		<div class="col-span-4 space-y-4">

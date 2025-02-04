@@ -7,14 +7,13 @@
 	type LoginForm = {
 		username: string;
 		password: string;
-	}
-
+	};
 
 	let isLoading = $state(false);
 	let form: HTMLFormElement;
 	const formData: LoginForm = $state({
 		username: '',
-		password: '',
+		password: ''
 	});
 
 	async function onsubmit() {
@@ -33,7 +32,7 @@
 		const password = document.createElement('input');
 		password.type = 'hidden';
 		password.name = 'password';
-		password.value = formData.password
+		password.value = formData.password;
 		form.appendChild(password);
 
 		form.submit();
@@ -52,7 +51,13 @@
 			<form {onsubmit} class="space-y-4">
 				<div class="space-y-2">
 					<Label for="email">Usuario / Correo Electrónico</Label>
-					<Input id="email" type="text" placeholder="m@example.com" bind:value={formData.username} required />
+					<Input
+						id="email"
+						type="text"
+						placeholder="m@example.com"
+						bind:value={formData.username}
+						required
+					/>
 				</div>
 				<div class="space-y-2">
 					<div class="flex items-center justify-between">

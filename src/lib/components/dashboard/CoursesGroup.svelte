@@ -14,20 +14,20 @@
 	let orderedCourses = [...userCourses];
 	let visibleCourses: UserCourse[] = $state(orderedCourses.slice(0, 3));
 	let showAll = $state(false);
-    let ascending = $state(true);
-    
-    function toggleShowAll() {
-        showAll = !showAll;
-        visibleCourses = showAll ? orderedCourses : orderedCourses.slice(0, 3);
-    }
+	let ascending = $state(true);
 
-    function sortCourses() {
-        orderedCourses = [...orderedCourses].sort((a, b) => {
-            return ascending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-        });
-        visibleCourses = showAll ? orderedCourses : orderedCourses.slice(0, 3);
-        ascending = !ascending;
-    }
+	function toggleShowAll() {
+		showAll = !showAll;
+		visibleCourses = showAll ? orderedCourses : orderedCourses.slice(0, 3);
+	}
+
+	function sortCourses() {
+		orderedCourses = [...orderedCourses].sort((a, b) => {
+			return ascending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+		});
+		visibleCourses = showAll ? orderedCourses : orderedCourses.slice(0, 3);
+		ascending = !ascending;
+	}
 </script>
 
 <Collapsible.Root open={true}>
@@ -40,8 +40,10 @@
 		</Button>
 	</Collapsible.Trigger>
 	<Collapsible.Content class="mb-12 mt-8">
-
-		<Button class="rounded-full bg-white shadow-sm text-zinc-500 font-semibold hover:bg-indigo-100 hover:shadow-md mb-3" onclick={sortCourses}>
+		<Button
+			class="mb-3 rounded-full bg-white font-semibold text-zinc-500 shadow-sm hover:bg-indigo-100 hover:shadow-md"
+			onclick={sortCourses}
+		>
 			<span class="flex items-center gap-2">
 				Nombre
 				<i class={ascending ? 'bi bi-arrow-down' : 'bi bi-arrow-up'}></i>

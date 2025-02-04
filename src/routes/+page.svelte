@@ -45,7 +45,7 @@
 				<h3 class="text-xl font-semibold">Actividades Pendientes</h3>
 
 				{#each pendindActivities as pendingActivity}
-					<div class="flex items-top gap-2 rounded-md border-2 border-gray-200 p-4 py-4">
+					<div class="items-top flex gap-2 rounded-md border-2 border-gray-200 p-4 py-4">
 						<Checkbox class="rounded-full" />
 						<div>
 							<p class="text-sm font-semibold">{pendingActivity.curso}</p>

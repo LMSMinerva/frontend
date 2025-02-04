@@ -1,10 +1,10 @@
 <script lang="ts">
-	import * as Collapsible from "$lib/components/ui/collapsible/index.js";
+	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import ChevronRight from "lucide-svelte/icons/chevron-right";
+	import ChevronRight from 'lucide-svelte/icons/chevron-right';
 
 	let {
-		items,
+		items
 	}: {
 		items: {
 			title: string;
@@ -38,9 +38,11 @@
 										<mainItem.icon />
 									{/if}
 									<span>{mainItem.title}</span>
-									
-									{#if mainItem.items && mainItem.items.length > 0 }
-										<ChevronRight class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>
+
+									{#if mainItem.items && mainItem.items.length > 0}
+										<ChevronRight
+											class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+										/>
 									{/if}
 								</Sidebar.MenuButton>
 							{/snippet}
