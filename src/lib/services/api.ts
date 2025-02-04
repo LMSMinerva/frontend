@@ -2,7 +2,7 @@ import { apiBaseUrl } from "$lib/utils/constants";
 import { storeAuth } from "$lib/stores/auth";
 
 function getAuthToken(): string | null {
-    return storeAuth.getAuthToken();
+    return storeAuth.getAccessToken();
 }
 
 function createHeaders(options: RequestInit = {}): HeadersInit {
