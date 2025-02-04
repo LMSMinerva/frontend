@@ -11,7 +11,7 @@
 <div class="flex h-full w-full">
 	<Sidebar.Provider>
 		<CourseSidebar collapsible="none" />
-		<main class="">
+		<main class="px-12 space-y-4">
 			<Sidebar.Trigger />
 			<div>
 				<Home />
