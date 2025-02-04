@@ -6,7 +6,7 @@ export const load = (async ({ cookies }) => {
 	const authToken = cookies.get('authToken');
 	const refreshToken = cookies.get('refreshToken');
 
-	const user: Usuario = {
+	const user: User = {
 		username: 'jlargo',
 		fullname: 'Juan Carlos L',
 		email: 'jlargo@example.com',
