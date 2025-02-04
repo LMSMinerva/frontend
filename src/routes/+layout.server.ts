@@ -1,8 +1,12 @@
 import type { LayoutServerLoad } from './$types';
 import type { User } from '$types/user';
 
-export const load = (async () => {
-	const user: User = {
+export const load = (async ({ cookies }) => {
+
+	const authToken = cookies.get('authToken');
+	const refreshToken = cookies.get('refreshToken');
+
+	const user: Usuario = {
 		username: 'jlargo',
 		fullname: 'Juan Carlos L',
 		email: 'jlargo@example.com',
@@ -11,6 +15,8 @@ export const load = (async () => {
 	};
 
 	return {
-		user: user
+		user,
+		authToken,
+		refreshToken,
 	};
 }) satisfies LayoutServerLoad;
