@@ -1,13 +1,13 @@
 import type { Course } from '$lib/types/course';
 import $api from '$lib/services/api';
 export class CourseStore {
-	async getCourse(identifier: string): Promise<Course> {
+	async getCourse(identifier: string): Promise<Course | null> {
 		try {
 			const course: Course = await $api(`/courses/${identifier}`);
 			return course;
 		} catch (error) {
 			console.error(error);
-			throw new Error('Failed to fetch course');
+			return null;
 		}
 	}
 
@@ -17,7 +17,7 @@ export class CourseStore {
 			return courses;
 		} catch (error) {
 			console.error(error);
-			throw new Error('Failed to fetch courses');
+			return [];
 		}
 	}
 }

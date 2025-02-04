@@ -1,3 +1,4 @@
+import { CourseStore } from '$lib/stores/course';
 import type { Course } from '$lib/types/course';
 import { mockCurso } from '$lib/utils/mock';
 import type { PageServerLoad } from './$types';
@@ -8,7 +9,5 @@ export const load = (async ({ params }) => {
 		throw new Error('Slug is required');
 	}
 
-	const course: Course = mockCurso();
-
-	return { course };
+	return { slug };
 }) satisfies PageServerLoad;
