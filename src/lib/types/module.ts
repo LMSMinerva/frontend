@@ -1,4 +1,4 @@
-export type Module = {
+export type CourseModule = {
 	id: string;
 	name: string;
 	description: string;
