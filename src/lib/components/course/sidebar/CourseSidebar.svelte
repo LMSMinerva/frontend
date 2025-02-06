@@ -10,6 +10,7 @@
 	import Map from 'lucide-svelte/icons/map';
 	import Settings2 from 'lucide-svelte/icons/settings-2';
 	import SquareTerminal from 'lucide-svelte/icons/square-terminal';
+	import { page } from '$app/state';
 
 	// This is sample data.
 	const data = {
@@ -50,15 +51,15 @@
 				items: [
 					{
 						title: 'Modulo 1',
-						url: '#'
+						url: `/course/${page.params.slug}/module/${1}`
 					},
 					{
 						title: 'Modulo 2',
-						url: '#'
+						url: `/course/${page.params.slug}/module/${2}`
 					},
 					{
 						title: 'Modulo 3',
-						url: '#'
+						url: `/course/${page.params.slug}/module/${3}`
 					}
 				]
 			}
