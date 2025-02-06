@@ -1,9 +1,9 @@
 import type { Course } from '$lib/types/course';
 import $api from '$lib/services/api';
 export class CourseStore {
-	async getCourse(identifier: string): Promise<Course | null> {
+	async getCourseByAlias(alias: string): Promise<Course | null> {
 		try {
-			const course: Course = await $api(`/courses/${identifier}`);
+			const course: Course = await $api(`/course/${alias}`);
 			return course;
 		} catch (error) {
 			console.error(error);
