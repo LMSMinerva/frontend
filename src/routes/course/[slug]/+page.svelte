@@ -1,21 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	type Props = {
+		data: PageData;
+	}
 
-	import CourseSidebar from '$lib/components/course/sidebar/CourseSidebar.svelte';
-	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	let { data }: Props = $props();
+
 	import Home from '$lib/components/course/Home.svelte';
 </script>
 
-<div class="flex h-full w-full">
-	<Sidebar.Provider>
-		<CourseSidebar />
-		<main class="space-y-4 px-12">
-			<Sidebar.Trigger />
-			<div>
-				<Home />
-			</div>
-		</main>
-	</Sidebar.Provider>
-</div>
+<Home />
