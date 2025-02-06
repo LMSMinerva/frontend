@@ -18,6 +18,7 @@ export const actions = {
 		const username = form.get('username');
 		const password = form.get('password');
 
+		/*
 		const response = await fetch('https://minerva-api-uid2.onrender.com/api/token/', {
 			method: 'POST',
 			headers: {
@@ -27,6 +28,10 @@ export const actions = {
 		});
 		const data = await response.json();
 		const { refresh, access } = data;
+		*/
+
+		const refresh = "123"
+		const access = "bWluZXJ2YTptaW5fbG1zMTIz"
 
 		const maxAge = 60 * 60 * 24 * 7;
 
