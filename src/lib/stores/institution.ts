@@ -4,7 +4,7 @@ import $api from '$lib/services/api';
 export class InstitutionStore {
 	async getInstitution(id: string): Promise<Institution | null> {
 		try {
-			const institution: Institution = await $api(`/institutions/${id}`);
+			const institution: Institution = await $api(`/institutions/${id}/`);
 			return institution;
 		} catch (error) {
 			console.error(error);
