@@ -3,7 +3,7 @@ import $api from '$lib/services/api';
 export class CourseStore {
 	async getCourseByAlias(alias: string): Promise<Course | null> {
 		try {
-			const course: Course = await $api(`/course/${alias}`);
+			const course: Course = await $api(`/course/${alias}/`);
 			return course;
 		} catch (error) {
 			console.error(error);
