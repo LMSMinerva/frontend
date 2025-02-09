@@ -1,15 +1,20 @@
-import { apiBaseUrl } from '$lib/utils/constants';
+import { apiBaseUrl, apiUser, apiPassword } from '$lib/utils/constants';
 import { storeAuth } from '$lib/stores/auth';
 
 function getAuthToken(): string | null {
 	return storeAuth.getAccessToken();
 }
 
+function getAuthUser(): string {
+	return btoa(`${apiUser}:${apiPassword}`);
+}
+
 function createHeaders(options: RequestInit = {}): HeadersInit {
 	const token = getAuthToken();
+	const user = getAuthUser();
 	return {
 		'Content-Type': 'application/json',
-		authorization: `Basic ${token}`,
+		authorization: `Basic ${user}`,
 		...options.headers
 	};
 }

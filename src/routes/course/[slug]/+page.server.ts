@@ -9,5 +9,11 @@ export const load = (async ({ params }) => {
 		throw new Error('Slug is required');
 	}
 
-	return { slug };
+	const courseStore = new CourseStore();
+	const course: Course | null = courseStore.getCourseByAlias(slug);
+	if (!course) {
+		throw new Error('Course not found');
+	}
+
+	return { course };
 }) satisfies PageServerLoad;
