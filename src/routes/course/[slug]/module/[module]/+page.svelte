@@ -40,7 +40,7 @@
                 <Card class="h-full">
                     <div class="m-4">
                         <p class="text-slate-700 text-center">
-                            Próximamente: apertura de módulo
+                            Próximamente: apertura de contenido
                         </p>
                 </Card>
             </div>
