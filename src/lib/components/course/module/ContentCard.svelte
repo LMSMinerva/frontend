@@ -19,7 +19,7 @@
 </script>
 
 <div
-	class="flex flex-row gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:scale-105 hover:shadow-xl"
+	class="flex flex-row gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
 >
 	<div
 		class="h-[110px] w-2/5 rounded-lg bg-gradient-to-b from-[#DB4E66] via-[#A24688] to-[#4E3ABA]"

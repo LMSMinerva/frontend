@@ -84,7 +84,7 @@
 	data.navMain[0].url = `/course/${alias}`;
 	data.navMain[1].items = data.modules.map((module: CourseModule) => ({
 		title: module.name,
-		url: `/course/${alias}/module/${module.order}`,
+		url: `/course/${alias}/module/${module.id}`,
 		isActive: module.order === Number(page.params.module)
 	}));
 </script>

@@ -1,15 +1,17 @@
 import { mockContents } from '$lib/utils/mock';
+import { ModuleStore } from '$lib/stores/module';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ params, parent }) => {
-    const parentData = await parent();
+export const load = (async ({ params }) => {
+    const id = params.module;
+    if (!id) {
+		throw new Error('Slug is required');
+	}
 
-    const module = parentData.modules.find((module) => module.order === Number(params.module));
-    const contents = mockContents();
-    if (!module) {
-        throw new Error('Module not found');
+    const moduleStore = new ModuleStore();
+
+    return {
+        module: moduleStore.getModuleById(id),
+        contents: mockContents()
     }
-
-    return { module, contents };
-
 }) satisfies PageServerLoad;
