@@ -1,5 +1,4 @@
-import { VITE_BACKEND_URL, API_USER, API_PASSWORD } from '$env/static/public';
+import { VITE_BACKEND_URL, VITE_ADMIN_SECRET } from '$env/static/private';
 
 export const apiBaseUrl = VITE_BACKEND_URL;
-export const apiUser = API_USER;
-export const apiPassword = API_PASSWORD;
+export const adminSecret = VITE_ADMIN_SECRET;

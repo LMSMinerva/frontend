@@ -1,6 +1,8 @@
 <script lang="ts">
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 
+	const { course, institution } = $props();
+
 	const instructores = [
 		{
 			nombre: 'Julian Moreno',
@@ -19,29 +21,31 @@
 			.map((w) => w[0].toUpperCase())
 			.join('');
 	};
+
+	const numberReviews = 5200;
+	const progress = 80;
 </script>
 
 <div class="space-y-8">
 	<div class="flex items-center gap-4">
-		<Avatar.Root class="size-8">
-			<Avatar.Image src="" alt="@shadcn" />
-			<Avatar.Fallback>UN</Avatar.Fallback>
+		<Avatar.Root class="h-10 w-10">
+			<Avatar.Image src={institution.icon} alt={institution.name} />
+			<Avatar.Fallback>{getInitials(institution.name)}</Avatar.Fallback>
 		</Avatar.Root>
-
-		<h2>Universidad Nacional de Colombia</h2>
+		<h3 class="text-xl font-bold">{institution.name}</h3>
 	</div>
 
 	<div class="grid grid-cols-12 gap-x-12">
 		<div class="col-span-8 space-y-6">
 			<h2 class="text-lg font-semibold">Instructores</h2>
-			<div class="flex flex-wrap items-center gap-6">
+			<div class="flex flex-col gap-3">
 				{#each instructores as instructor}
 					<div class="flex items-center gap-4">
-						<Avatar.Root>
+						<Avatar.Root class="h-8 w-8">
 							<Avatar.Image src={instructor.avatar} alt={instructor.nombre} />
 							<Avatar.Fallback>{getInitials(instructor.nombre)}</Avatar.Fallback>
 						</Avatar.Root>
-						<h3>{instructor.nombre}</h3>
+						<h3 class="text-slate-700">{instructor.nombre}</h3>
 					</div>
 				{/each}
 			</div>
@@ -52,40 +56,48 @@
 
 			<div class="space-y-2">
 				<h2 class="text-lg font-semibold">Acerca de este curso</h2>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet odio quis mollis
-					venenatis. Suspendisse ut est sed augue bibendum imperdiet id vitae dui. Etiam ullamcorper
-					porta diam, ultrices tempor ipsum ornare vitae. Donec nec justo a diam luctus faucibus.
-					Proin eu eleifend nisi. Cras iaculis eu felis sed dictum. Nullam dictum metus nec
-					malesuada interdum. Aliquam volutpat, lectus et iaculis tincidunt, nunc mi mattis magna,
-					vitae faucibus elit est quis dui. In hac habitasse platea dictumst. Donec in metus massa.
-					Etiam at bibendum orci. Morbi laoreet nulla nibh, id bibendum erat hendrerit sed.
-				</p>
+				<p class="text-slate-700">{course.description}</p>
 			</div>
 
-			<div class="flex items-center gap-12 text-zinc-500">
-				<span class="flex items-center gap-1">
-					<i class="bi bi-award"></i>
-					<span>10</span>
-				</span>
+			<div class="flex items-center gap-10 text-zinc-500">
+				{#if course.rating}
+					<span class="flex items-center gap-1">
+						<i class="bi bi-award"></i>
+						<span>{course.rating}</span>
+					</span>
+				{/if}
 
 				<span class="flex items-center gap-1">
 					<i class="bi bi-chat-left"></i>
-					<span>25</span>
+					<span>{course.comments}</span>
 				</span>
 
 				<span class="flex items-center gap-1">
 					<i class="bi bi-star"></i>
-					<span>4.5</span>
+					<span>{course.reviews}</span>
+				</span>
+			</div>
+
+			<hr />
+
+			<div class="space-y-2">
+				<p class="text-slate-700">Este curso ha sido calificado por {numberReviews} personas</p>
+				<span class="flex items-center gap-1 text-zinc-500">
+					<i class="bi bi-star"></i>
+					<i class="bi bi-star"></i>
+					<i class="bi bi-star"></i>
+					<i class="bi bi-star"></i>
+					<i class="bi bi-star"></i>
+					<span class="text-sm ml-2">Califica este curso</span>
 				</span>
 			</div>
 		</div>
 
 		<div class="col-span-4 space-y-4">
-			<span class="text-zinc-600">Tu progreso en el curso es de 80%</span>
+			<span class="text-slate-700">Tu progreso en el curso es de {progress}%</span>
 
 			<h2 class="text-lg font-semibold">Comentarios</h2>
-			<div class="space-y-4">
+			<div class="space-y-4 text-slate-700">
 				<div class="space-y-2 rounded border p-4">
 					<div class="space-x-2">Carolina</div>
 					<p>20/01/2025</p>

@@ -1,20 +1,15 @@
-import { apiBaseUrl, apiUser, apiPassword } from '$lib/utils/constants';
+import { apiBaseUrl } from '$lib/utils/constants';
 import { storeAuth } from '$lib/stores/auth';
 
 function getAuthToken(): string | null {
 	return storeAuth.getAccessToken();
 }
 
-function getAuthUser(): string {
-	return btoa(`${apiUser}:${apiPassword}`);
-}
-
 function createHeaders(options: RequestInit = {}): HeadersInit {
 	const token = getAuthToken();
-	const user = getAuthUser();
 	return {
 		'Content-Type': 'application/json',
-		authorization: `Basic ${user}`,
+		authorization: `Basic ${token}`,
 		...options.headers
 	};
 }
@@ -32,9 +27,11 @@ interface ApiOptions extends RequestInit {
 
 async function $api(endpoint: string, options: ApiOptions = {}): Promise<any> {
 	const headers = createHeaders(options);
-	const response = await fetch(`${apiBaseUrl}${endpoint}`, {
+	const response = await fetch(`${apiBaseUrl}${endpoint}`,
+		{
 		...options,
-		headers
+		headers,
+		
 	});
 	return handleResponse(response);
 }

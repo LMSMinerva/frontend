@@ -15,8 +15,8 @@
 
 <div class="flex h-full w-full">
 	<Sidebar.Provider>
-		<CourseSidebar />
-		<main class="space-y-4 px-12">
+		<CourseSidebar data={data} />
+		<main class="space-y-4 px-12 w-full">
 			<Sidebar.Trigger />
 			<div>
 				{@render children()}

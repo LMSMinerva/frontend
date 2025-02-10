@@ -10,4 +10,4 @@
 	import Home from '$lib/components/course/Home.svelte';
 </script>
 
-<Home />
+<Home course={data.course} institution={data.institution} />

@@ -124,3 +124,41 @@ export function getUserCourses() {
 		available
 	};
 }
+
+export function mockContents() {
+	return [
+		{
+			id: '1',
+			name: 'Notación Big O',
+			description: '8 minutos 45 segundos',
+			order: 1,
+			reviews: 2,
+			comments: 32,
+			rating: '4.5',
+			module: 'module1',
+			content_type: 'video_content',
+		},
+		{
+			id: '2',
+			name: 'Parcial 1',
+			description: '25 preguntas',
+			order: 2,
+			reviews: 2,
+			comments: 32,
+			rating: '4.5',
+			module: 'module1',
+			content_type: 'assesment_content',
+		},
+		{
+			id: '3',
+			name: 'Pago en Beris',
+			description: '1/3 intentos',
+			order: 3,
+			reviews: 2,
+			comments: 32,
+			rating: '4.5',
+			module: 'module1',
+			content_type: 'assesment_content',
+		}
+	]
+}

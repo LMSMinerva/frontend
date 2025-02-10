@@ -5,5 +5,5 @@ export type CourseModule = {
 	order: number;
 	instructional_items: number;
 	assessment_items: number;
-	id_course: string;
+	course: string;
 };
