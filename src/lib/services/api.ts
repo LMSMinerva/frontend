@@ -27,9 +27,11 @@ interface ApiOptions extends RequestInit {
 
 async function $api(endpoint: string, options: ApiOptions = {}): Promise<any> {
 	const headers = createHeaders(options);
-	const response = await fetch(`${apiBaseUrl}${endpoint}`, {
+	const response = await fetch(`${apiBaseUrl}${endpoint}`,
+		{
 		...options,
-		headers
+		headers,
+		
 	});
 	return handleResponse(response);
 }

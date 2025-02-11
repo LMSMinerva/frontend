@@ -1,3 +1,4 @@
+import { adminSecret } from '$lib/utils/constants';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
@@ -30,8 +31,8 @@ export const actions = {
 		const { refresh, access } = data;
 		*/
 
-		const refresh = "123"
-		const access = "bWluZXJ2YTptaW5fbG1zMTIz"
+		const refresh = "123";
+		const access = btoa(adminSecret);
 
 		const maxAge = 60 * 60 * 24 * 7;
 

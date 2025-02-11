@@ -12,12 +12,7 @@
 	import SquareTerminal from 'lucide-svelte/icons/square-terminal';
 
 	// This is sample data.
-	const data = {
-		user: {
-			name: 'shadcn',
-			email: 'm@example.com',
-			avatar: 'https://github.com/shadcn.png'
-		},
+	const sampleData = {
 		teams: [
 			{
 				name: 'Fundamentos de programacion',
@@ -37,30 +32,17 @@
 		],
 		navMain: [
 			{
-				title: 'Inicio',
+				title: 'Syllabus',
 				url: '#',
 				icon: Home,
 				isActive: false
 			},
 			{
-				title: 'Modulos',
+				title: 'Módulos',
 				url: '#',
 				icon: BookOpen,
 				isActive: true,
-				items: [
-					{
-						title: 'Modulo 1',
-						url: `/course/ed/module/${1}`
-					},
-					{
-						title: 'Modulo 2',
-						url: `/course/ed/module/${2}`
-					},
-					{
-						title: 'Modulo 3',
-						url: `/course/ed/module/${3}`
-					}
-				]
+				items: []
 			}
 		],
 		projects: [
@@ -79,18 +61,32 @@
 </script>
 
 <script lang="ts">
+	import type { CourseModule } from '$lib/types/module';
 	import NavMain from './nav-main.svelte';
 	import NavProjects from './nav-projects.svelte';
 	import NavUser from './nav-user.svelte';
 	import TeamSwitcher from './team-switcher.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import type { ComponentProps } from 'svelte';
+	import { page } from '$app/state';
 
 	let {
+		data,
 		ref = $bindable(null),
-		collapsible = 'icon',
+		collapsible = 'icon' as 'none' | 'icon' | 'offcanvas' | undefined,
 		...restProps
-	}: ComponentProps<typeof Sidebar.Root> = $props();
+	} = $props();
+
+	if (!data.teams) data.teams = sampleData.teams;
+	if (!data.navMain) data.navMain = sampleData.navMain;
+	if (!data.projects) data.projects = sampleData.projects;
+
+	const alias = data.course.alias;
+	data.navMain[0].url = `/course/${alias}`;
+	data.navMain[1].items = data.modules.map((module: CourseModule) => ({
+		title: module.name,
+		url: `/course/${alias}/module/${module.id}`,
+		isActive: module.order === Number(page.params.module)
+	}));
 </script>
 
 <Sidebar.Root class="h-full" bind:ref {collapsible} {...restProps}>

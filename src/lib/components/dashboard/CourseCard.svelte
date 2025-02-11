@@ -18,7 +18,7 @@
 	}
 </script>
 
-<div class="w-max-content flex flex-col gap-4 rounded-lg bg-white p-4 shadow-md">
+<div class="w-max-content flex flex-col gap-4 rounded-lg bg-white p-4 shadow-md cursor-pointer">
 	<div
 		class="flex h-[153px] w-full items-center justify-center rounded-md bg-indigo-100 object-cover"
 	>

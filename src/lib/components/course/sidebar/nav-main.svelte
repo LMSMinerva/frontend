@@ -37,8 +37,9 @@
 									{#if mainItem.icon}
 										<mainItem.icon />
 									{/if}
-									<span>{mainItem.title}</span>
-
+									<a href={mainItem.url}>
+										<span>{mainItem.title}</span>
+									</a>
 									{#if mainItem.items && mainItem.items.length > 0}
 										<ChevronRight
 											class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
