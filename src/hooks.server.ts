@@ -5,7 +5,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const refreshToken = event.cookies.get('refreshToken');
 
 	const isValid = authToken !== undefined && refreshToken !== undefined;
-	const isLogin = event.url.pathname === '/login';
+	const isLogin = event.url.pathname === '/login' || event.url.pathname === '/authorize';
 
 	if (isLogin) {
 		return await resolve(event);
