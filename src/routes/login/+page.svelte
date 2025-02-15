@@ -53,11 +53,10 @@
 		// Parameters to pass to OAuth 2.0 endpoint.
 		const params: Record<string, string> = {
 			client_id: '927512412726-qbrkf1gcel5f2gnsk6tsegq8n1gjfni9.apps.googleusercontent.com',
-			redirect_uri: 'http://localhost:5173/authorize',
+			redirect_uri: `${window.location.origin}/authorize`,
 			response_type: 'code',
 			scope: 'profile',
 			include_granted_scopes: 'true',
-			state: 'pass-through value'
 		};
 
 		// Add form parameters as hidden input values.
