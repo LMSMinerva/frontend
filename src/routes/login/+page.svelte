@@ -150,6 +150,7 @@
 				</div>
 			</div>
 
+			<!--
 			<div
 				class="g_id_signin w-full"
 				data-type="standard"
@@ -159,6 +160,7 @@
 				data-shape="rectangular"
 				data-logo_alignment="left"
 			></div>
+			-->
 
 			<div class="text-center text-sm text-gray-600">
 				<span>¿No tienes una cuenta?</span>
