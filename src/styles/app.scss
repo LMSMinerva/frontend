@@ -11,3 +11,7 @@
 ::-webkit-scrollbar-thumb {
 	@apply rounded-full border-[1px] border-solid border-transparent bg-zinc-400 bg-clip-padding;
 }
+
+body {
+	@apply bg-zinc-100;
+}

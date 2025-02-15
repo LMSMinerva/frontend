@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Usuario } from '$lib/types';
+	import type { User } from '$types/user';
 
 	type Props = {
-		user: Usuario;
+		user: User;
 		page: string;
 	};
 
@@ -12,6 +12,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
 <header class="flex items-center justify-between border-b bg-white px-6 py-4">
@@ -24,6 +25,10 @@
 	</div>
 
 	<nav class="flex items-center space-x-4">
+		<Button variant="ghost" class="size-11 bg-indigo-50">
+			<i class="bi bi-bell"></i>
+		</Button>
+		<Separator orientation="vertical" />
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				<Avatar.Root class="size-11">
@@ -31,7 +36,7 @@
 					<Avatar.Fallback
 						>{user.fullname
 							.split(' ')
-							.map((name) => name[0])
+							.map((name: string) => name[0])
 							.join('')}</Avatar.Fallback
 					>
 				</Avatar.Root>
@@ -56,8 +61,10 @@
 				</DropdownMenu.Group>
 				<DropdownMenu.Separator />
 				<DropdownMenu.Item>
-					<i class="bi bi-box-arrow-right"></i>
-					<span>Cerrar sesion</span>
+					<a href="/logout">
+						<i class="bi bi-box-arrow-right"></i>
+						<span>Cerrar sesion</span>
+					</a>
 				</DropdownMenu.Item>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>

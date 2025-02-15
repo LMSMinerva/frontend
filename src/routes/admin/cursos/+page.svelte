@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Curso } from '$lib/types';
+	import type { Course } from '$types/course';
 	import type { PageData } from './$types';
 
 	type Props = {
@@ -7,7 +7,7 @@
 	};
 
 	const { data }: Props = $props();
-	const courses: Array<Curso> = data.courses;
+	const courses: Array<Course> = data.courses;
 
 	import 'bootstrap-icons/font/bootstrap-icons.min.css';
 	import * as Table from '$lib/components/ui/table';

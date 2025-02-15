@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import type { Curso } from '$lib/types';
+	import type { Course } from '$types/course';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
 	type Props = {
@@ -19,7 +19,7 @@
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
 
-	const curso: Curso = $state({
+	const curso: Course = $state({
 		id: 0,
 		name: '',
 		alias: '',
@@ -50,7 +50,7 @@
 			});
 
 			if (response.ok) {
-				const result: Curso = await response.json();
+				const result: Course = await response.json();
 				toast.success(`Curso guardado exitosamente. ID: ${result.id}, Nombre: ${result.alias}`);
 				await goto('/admin/cursos');
 			} else {

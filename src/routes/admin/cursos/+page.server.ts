@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
-import type { Curso } from '$lib/types';
+import type { Course } from '$types/course';
 import { mockCursos } from '$lib/utils/mock';
 
 export const load = (async () => {
-	const courses: Curso[] = mockCursos();
+	const courses: Course[] = mockCursos();
 	return {
 		courses
 	};
