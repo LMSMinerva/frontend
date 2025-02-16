@@ -55,7 +55,7 @@
 			client_id: '927512412726-qbrkf1gcel5f2gnsk6tsegq8n1gjfni9.apps.googleusercontent.com',
 			redirect_uri: `${window.location.origin}/authorize`,
 			response_type: 'code',
-			scope: 'openid profile email',
+			scope: 'openid profile email https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.gender.read',
 			include_granted_scopes: 'true',
 		};
 
