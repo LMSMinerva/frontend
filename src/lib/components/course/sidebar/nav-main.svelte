@@ -30,14 +30,14 @@
 					<Sidebar.MenuItem {...props}>
 						<Collapsible.Trigger>
 							{#snippet child({ props })}
-								<Sidebar.MenuButton {...props}>
+								<Sidebar.MenuButton {...props} class="w-full">
 									{#snippet tooltipContent()}
 										{mainItem.title}
 									{/snippet}
 									{#if mainItem.icon}
 										<mainItem.icon />
 									{/if}
-									<a href={mainItem.url}>
+									<a href={mainItem.url} class="w-full">
 										<span>{mainItem.title}</span>
 									</a>
 									{#if mainItem.items && mainItem.items.length > 0}
