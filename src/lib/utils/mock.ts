@@ -125,7 +125,7 @@ export function getUserCourses() {
 	};
 }
 
-export function mockContents() {
+export async function mockContents() {
 	return [
 		{
 			id: '1',
