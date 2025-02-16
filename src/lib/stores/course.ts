@@ -11,6 +11,16 @@ export class CourseStore {
 		}
 	}
 
+	async getCourse(id: string): Promise<Course | null> {
+		try {
+			const course: Course = await $api(`/courses/${id}/`);
+			return course;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	}
+
 	async getCourses(): Promise<Course[]> {
 		try {
 			const courses: Course[] = await $api(`/courses/`);
