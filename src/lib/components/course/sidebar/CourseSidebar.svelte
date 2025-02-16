@@ -62,5 +62,4 @@
 		<NavMain items={sidebarData.navMain} />
 		<NavProjects projects={sidebarData.projects} />
 	</Sidebar.Content>
-	<Sidebar.Rail />
 </Sidebar.Root>
