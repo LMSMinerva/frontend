@@ -10,7 +10,7 @@
 	let { data }: Props = $props();
 
 	const course = $state(data.course);
-	let institution: Promise<Institution> = $state(data.institution);
+	let institution: Promise<Institution | null> = $state(data.institution);
 
 	import Home from '$lib/components/course/Home.svelte';
 	import type { Institution } from '$lib/types/institution';

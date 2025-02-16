@@ -1,6 +1,6 @@
+import type { PageLoad } from './$types';
 import { mockContents } from '$lib/utils/mock';
 import { ModuleStore } from '$lib/stores/module';
-import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
     const id = params.module;
@@ -14,4 +14,4 @@ export const load = (async ({ params }) => {
         module: moduleStore.getModuleById(id),
         contents: mockContents()
     }
-}) satisfies PageServerLoad;
+}) satisfies PageLoad;
