@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Course } from '$lib/types/course';
 	import type { LayoutData } from './$types';
-	import type { Snippet } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import type { CourseModule } from '$lib/types/module';
+	import { ModuleStore } from '$lib/stores/module';
 
 	type Props = {
 		children: Snippet;
@@ -12,7 +13,12 @@
 	let { data, children }: Props = $props();
 
 	let course: Course = $state(data.course as Course);
-	let modules: CourseModule[] = $state(data.modules as CourseModule[]);
+	let modules: CourseModule[] = $state([]);
+
+	onMount(async () => {
+		const moduleStore = new ModuleStore();
+		modules = await moduleStore.getModulesByCourseId((data.course as Course).id);
+	});
 
 	import CourseSidebar from '$lib/components/course/sidebar/CourseSidebar.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
