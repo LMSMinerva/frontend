@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { ModuleStore } from '$lib/stores/module';
 	import type { Course } from '$lib/types/course';
 	import type { LayoutData } from './$types';
 	import type { Snippet } from 'svelte';
@@ -12,13 +11,8 @@
 
 	let { data, children }: Props = $props();
 
-	const storeModules = new ModuleStore();
 	let course: Course = $state(data.course as Course);
-	let modules: CourseModule[] = $state([]);
-
-	storeModules.getModulesByCourseId(course.id).then((res) => {
-		modules = res;
-	});
+	let modules: CourseModule[] = $state(data.modules as CourseModule[]);
 
 	import CourseSidebar from '$lib/components/course/sidebar/CourseSidebar.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
