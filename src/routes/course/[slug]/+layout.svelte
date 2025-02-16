@@ -27,7 +27,7 @@
 <div class="flex w-full">
 	<Sidebar.Provider>
 		{#if course}
-			<CourseSidebar data={{ ...data }} {course} {modules} />
+			<CourseSidebar {course} {modules} />
 			<main class="w-full space-y-4 px-12">
 				<Sidebar.Trigger />
 				<div>
