@@ -7,9 +7,12 @@ export const load = (async ({ params }) => {
 		throw new Error('Slug is required');
 	}
 
+	console.log("Loading from server layout course..", slug);
+	
 	const courseStore = new CourseStore();
+	const course = await courseStore.getCourseByAlias(slug);
 
 	return {
-		course: courseStore.getCourseByAlias(slug)
+		course: course,
 	};
 }) satisfies LayoutServerLoad;

@@ -1,7 +1,15 @@
 <script lang="ts">
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
+	import type { Course } from '$lib/types/course';
+	import type { Institution } from '$lib/types/institution';
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
 
-	const { course, institution } = $props();
+	type Props = {
+		course: Course;
+		institution: Institution | null;
+	};
+
+	const { course, institution }: Props = $props();
 
 	const instructores = [
 		{
@@ -28,11 +36,15 @@
 
 <div class="space-y-8">
 	<div class="flex items-center gap-4">
-		<Avatar.Root class="h-10 w-10">
-			<Avatar.Image src={institution.icon} alt={institution.name} />
-			<Avatar.Fallback>{getInitials(institution.name)}</Avatar.Fallback>
-		</Avatar.Root>
-		<h3 class="text-xl font-bold">{institution.name}</h3>
+		{#if institution !== null}
+			<Avatar.Root class="h-10 w-10">
+				<Avatar.Image src={institution.icon} alt={institution.name} />
+				<Avatar.Fallback>{getInitials(institution.name)}</Avatar.Fallback>
+			</Avatar.Root>
+			<h3 class="text-xl font-bold">{institution.name}</h3>
+		{:else}
+			<Skeleton class="h-10 w-[250px] bg-gray-200 rounded-full" />
+		{/if}
 	</div>
 
 	<div class="grid grid-cols-12 gap-x-12">
@@ -88,7 +100,7 @@
 					<i class="bi bi-star"></i>
 					<i class="bi bi-star"></i>
 					<i class="bi bi-star"></i>
-					<span class="text-sm ml-2">Califica este curso</span>
+					<span class="ml-2 text-sm">Califica este curso</span>
 				</span>
 			</div>
 		</div>
