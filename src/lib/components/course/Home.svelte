@@ -6,7 +6,7 @@
 
 	type Props = {
 		course: Course;
-		institution: Institution | null;
+		institution: Promise<Institution> | null;
 	};
 
 	const { course, institution }: Props = $props();
@@ -21,9 +21,11 @@
 			avatar: 'https://github.com/shadcn.png'
 		}
 	];
-
 	const getInitials = (name: string) => {
 		const words = name.split(' ');
+		if (words.length === 1) {
+			return words[0][0].toUpperCase();
+		}
 		return words
 			.slice(0, 2)
 			.map((w) => w[0].toUpperCase())
@@ -36,15 +38,17 @@
 
 <div class="space-y-8">
 	<div class="flex items-center gap-4">
-		{#if institution !== null}
+		{#await institution}
+			<Skeleton class="h-10 w-[250px] rounded-full bg-gray-200" />
+		{:then institution}
 			<Avatar.Root class="h-10 w-10">
-				<Avatar.Image src={institution.icon} alt={institution.name} />
-				<Avatar.Fallback>{getInitials(institution.name)}</Avatar.Fallback>
+				<Avatar.Image src={institution?.icon} alt={institution?.name} />
+				<Avatar.Fallback>{getInitials(institution?.name || "NN")}</Avatar.Fallback>
 			</Avatar.Root>
-			<h3 class="text-xl font-bold">{institution.name}</h3>
-		{:else}
-			<Skeleton class="h-10 w-[250px] bg-gray-200 rounded-full" />
-		{/if}
+			<h3 class="text-xl font-bold">{institution?.name}</h3>
+		{:catch error}
+			<p>Something went wrong: {error.message}</p>
+		{/await}
 	</div>
 
 	<div class="grid grid-cols-12 gap-x-12">
