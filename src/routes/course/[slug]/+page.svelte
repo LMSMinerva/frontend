@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { CourseStore } from '$lib/stores/course';
+	import type { Course } from '$lib/types/course';
 
 	type Props = {
 		data: PageData;
@@ -7,11 +9,11 @@
 
 	let { data }: Props = $props();
 
+	const course = $state(data.course);
+	let institution: Promise<Institution | null> = $state(data.institution);
+
 	import Home from '$lib/components/course/Home.svelte';
+	import type { Institution } from '$lib/types/institution';
 </script>
 
-{#await Promise.all([data.course, data.institution])}
-	<p class="text-xl font-semibold">Cargando información...</p>
-{:then [course, institution]}
-	<Home course={course} institution={institution} />
-{/await}
+<Home course={course as Course} {institution} />

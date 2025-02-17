@@ -125,7 +125,10 @@ export function getUserCourses() {
 	};
 }
 
-export function mockContents() {
+export async function mockContents() {
+
+	await new Promise(resolve => setTimeout(resolve, 3000));
+
 	return [
 		{
 			id: '1',

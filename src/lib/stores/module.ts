@@ -3,7 +3,7 @@ import $api from '$lib/services/api';
 export class ModuleStore {
 	async getModulesByCourseId(courseId: string): Promise<CourseModule[]> {
 		try {
-			const modules: CourseModule[] = await $api(`/module/?course_id=${courseId}/`);
+			const modules: CourseModule[] = await $api(`/courses/${courseId}/modules/`);
 			return modules;
 		} catch (error) {
 			console.error(error);
