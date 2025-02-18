@@ -10,8 +10,7 @@
 	import Nav from '$components/layout/Nav.svelte';
 	import Footer from '$components/layout/Footer.svelte';
 	import type { Snippet } from 'svelte';
-	let { children, data } = $props();
-
+	let { children, data }: Props = $props();
 	storeAuth.setAccessToken(data.accessToken || '');
 	storeAuth.setRefreshToken(data.refreshToken || '');
 </script>

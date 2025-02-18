@@ -36,7 +36,8 @@ export class AuthCookies {
 
 	static getUserFromCookies(cookies: Cookies): User | null {
 		const data = cookies.get(this.USER_COOKIE_NAME);
-		if (!data) return null;
+		console.log("Getting user from cookies", data);
+		if (data === undefined) return null;
 		return JSON.parse(data);
 	}
 
