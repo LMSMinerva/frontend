@@ -7,7 +7,9 @@ import { redirect } from '@sveltejs/kit';
 export const load = (async ({ cookies }) => {
 	const isAuthenticated = AuthCookies.hasAuthCookies(cookies);
 
-	if (isAuthenticated) redirect(303, '/');
+	if (isAuthenticated) {
+		redirect(303, '/');
+	}
 
 	return {};
 }) satisfies PageServerLoad;
