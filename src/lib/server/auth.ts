@@ -10,6 +10,11 @@ export class AuthCookies {
         this.setCookie(cookies, this.REFRESH_TOKEN_COOKIE_NAME, refreshToken);
     }
 
+    static deleteAuthCookies(cookies: Cookies): void {
+        this.deleteCookie(cookies, this.ACCESS_TOKEN_COOKIE_NAME);
+        this.deleteCookie(cookies, this.REFRESH_TOKEN_COOKIE_NAME);
+    }
+
     private static setCookie(cookies: Cookies, cookieName: string, cookieValue: string): void {
         cookies.set(cookieName, cookieValue, {
             maxAge: this.MAX_AGE,
@@ -18,5 +23,9 @@ export class AuthCookies {
             secure: true,
             sameSite: 'strict'
         });
+    }
+
+    private static deleteCookie(cookies: Cookies, cookieName: string): void {
+        cookies.delete(cookieName, { path: '/' })
     }
 }
