@@ -1,22 +1,24 @@
 <script lang="ts">
 	import Card from '$lib/components/ui/card/card.svelte';
 	import ContentCard from '$lib/components/course/module/ContentCard.svelte';
+	import ContentVisualization from '$lib/components/course/module/ContentVisualization.svelte';
 	import type { PageData } from './$types';
 	import type { CourseModule } from '$lib/types/module';
 	import type { Content } from '$lib/types/content';
-	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+	import { Skeleton } from '$lib/components/ui/skeleton';
 
 	let { data }: { data: PageData } = $props();
 
 	const instructionalItemsCompleted = 80;
 	const assessmentItemsCompleted = 20;
 
-	let modulo: CourseModule | null = $state(null);
-	const contents: Promise<Content[]> = $state(data.contents);
+	const modulo: CourseModule | null = $state(data.module);
+	let contents: Promise<Content[]> = $state(data.contents);
+	let selectedContent: Content | null = $state(null);
 
-	data.module.then((moduleData) => {
-		modulo = moduleData;
-	});
+	function selectContent(content: Content) {
+		selectedContent = content;
+	}
 </script>
 
 <div class="space-y-4">
@@ -24,7 +26,7 @@
 		{#if modulo}
 			Módulo {modulo.order}: {modulo.name}
 		{:else}
-			<span class="flex gap-2 items-center">
+			<span class="flex items-center gap-2">
 				<span>Módulo</span>
 				<Skeleton class="h-4 w-[200px] bg-gray-200" />
 			</span>
@@ -59,16 +61,18 @@
 					<Skeleton class="h-full w-full bg-gray-200" />
 				{:then contents}
 					{#each contents || [] as content}
-						<ContentCard {content} />
+						<ContentCard {content} handleSelectContent={selectContent} />
 					{/each}
 				{/await}
 			</div>
 			<div class="col-span-7 flex flex-col gap-4">
-				<Card class="h-full">
-					<div class="m-4">
-						<p class="text-center text-slate-700">Próximamente: apertura de contenido</p>
-					</div></Card
-				>
+				{#if selectedContent}
+					<ContentVisualization {selectedContent} />
+				{:else}
+					<Card class="h-full p-4 text-center text-gray-500"
+						>Selecciona un contenido para ver más detalles.</Card
+					>
+				{/if}
 			</div>
 		</div>
 	</div>
