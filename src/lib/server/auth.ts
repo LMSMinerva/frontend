@@ -7,6 +7,14 @@ export class AuthCookies {
 	private static readonly USER_COOKIE_NAME = 'user';
 	private static readonly MAX_AGE = 60 * 60 * 24 * 7; // 1 week
 
+
+	static getAuthTokens(cookies: Cookies): { accessToken: string | undefined; refreshToken: string | undefined } {
+		return {
+			accessToken: cookies.get(this.ACCESS_TOKEN_COOKIE_NAME),
+			refreshToken: cookies.get(this.REFRESH_TOKEN_COOKIE_NAME)
+		};
+	}
+
 	static setAuthCookies(cookies: Cookies, accessToken: string, refreshToken: string): void {
 		this.setCookie(cookies, this.ACCESS_TOKEN_COOKIE_NAME, accessToken);
 		this.setCookie(cookies, this.REFRESH_TOKEN_COOKIE_NAME, refreshToken);
