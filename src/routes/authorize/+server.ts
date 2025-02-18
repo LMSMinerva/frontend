@@ -41,5 +41,5 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	AuthCookies.setAuthCookies(cookies, access_token, '');
 	AuthCookies.setUserData(cookies, userData);
 
-	throw redirect(303, '/');
+	return redirect(303, '/');
 };
