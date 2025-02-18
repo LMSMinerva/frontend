@@ -15,6 +15,10 @@ export class AuthCookies {
         this.deleteCookie(cookies, this.REFRESH_TOKEN_COOKIE_NAME);
     }
 
+    static hasAuthCookies(cookies: Cookies): boolean {
+        return cookies.get(this.ACCESS_TOKEN_COOKIE_NAME) !== undefined;
+    }
+
     private static setCookie(cookies: Cookies, cookieName: string, cookieValue: string): void {
         cookies.set(cookieName, cookieValue, {
             maxAge: this.MAX_AGE,
