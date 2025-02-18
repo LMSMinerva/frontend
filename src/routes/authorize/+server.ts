@@ -36,7 +36,7 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
 		avatar: user?.profile?.picture
 	};
 
-	console.log('User data:', userData);
+	console.log('User data:', JSON.stringify(userData));
 
 	AuthCookies.setAuthCookies(cookies, access_token, '');
 	AuthCookies.setUserData(cookies, userData);
