@@ -29,12 +29,19 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
 	const data: GoogleSignInResponse = await response.json();
 	const { access_token, user } = data;
 
+	if (!user || !user.profile) {
+		console.log('Invalid user data received from Google.');
+		throw redirect(303, '/login');
+	}
+
 	const userData: User = {
 		username: user.username,
 		fullname: `${user.profile.given_name} ${user.profile.family_name}`,
 		email: user.profile.email,
 		avatar: user.profile.picture
 	};
+
+	console.log('User data:', userData);
 
 	AuthCookies.setAuthCookies(cookies, access_token, '');
 	AuthCookies.setUserData(cookies, userData);
