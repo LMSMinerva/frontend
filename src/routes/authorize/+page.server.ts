@@ -1,5 +1,4 @@
 import type { PageServerLoad } from './$types';
-import type { RequestHandler } from './$types';
 import { redirect } from '@sveltejs/kit';
 import type { GoogleOAuthResponse, GoogleSignInResponse } from '$lib/types/auth';
 import { apiBaseUrl } from '$lib/utils/constants';
