@@ -29,5 +29,5 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
 
     AuthCookies.setAuthCookies(cookies, access_token, '');
 
-    throw redirect(303, '/login');
+    throw redirect(303, '/');
 };
