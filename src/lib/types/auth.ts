@@ -3,10 +3,13 @@ export type Token = {
 	refreshToken: string;
 };
 
-export type GoogleCredentialsResponse = {
-	credential: string;
-	g_csrf_token: string;
-}
+export type GoogleOAuthResponse = {
+	code: string;
+	scope: string;
+	authuser: string;
+	hd: string;
+	prompt: string;
+};
 
 export type UserProfile = {
 	email: string;
