@@ -2,7 +2,7 @@
 	import type { User } from '$types/user';
 
 	type Props = {
-		user: User;
+		user: User | null;
 		page: string;
 	};
 
@@ -29,45 +29,47 @@
 			<i class="bi bi-bell"></i>
 		</Button>
 		<Separator orientation="vertical" />
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger>
-				<Avatar.Root class="size-11">
-					<Avatar.Image src={user.avatar} alt={user.fullname} />
-					<Avatar.Fallback
-						>{user.fullname
-							.split(' ')
-							.map((name: string) => name[0])
-							.join('')}</Avatar.Fallback
-					>
-				</Avatar.Root>
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Content class="w-56" align="end">
-				<DropdownMenu.Label class="font-normal">
-					<div class="flex flex-col space-y-1">
-						<p class="text-sm font-medium leading-none">{user.fullname}</p>
-						<p class="text-xs leading-none text-muted-foreground">{user.email}</p>
-					</div>
-				</DropdownMenu.Label>
-				<DropdownMenu.Separator />
-				<DropdownMenu.Group>
+		{#if user !== null}
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					<Avatar.Root class="size-11">
+						<Avatar.Image src={user.avatar} alt={user.fullname} />
+						<Avatar.Fallback
+							>{user.fullname
+								.split(' ')
+								.map((name: string) => name[0])
+								.join('')}</Avatar.Fallback
+						>
+					</Avatar.Root>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content class="w-56" align="end">
+					<DropdownMenu.Label class="font-normal">
+						<div class="flex flex-col space-y-1">
+							<p class="text-sm font-medium leading-none">{user.fullname}</p>
+							<p class="text-xs leading-none text-muted-foreground">{user.email}</p>
+						</div>
+					</DropdownMenu.Label>
+					<DropdownMenu.Separator />
+					<DropdownMenu.Group>
+						<DropdownMenu.Item>
+							<i class="bi bi-person"></i>
+							<span>Perfil</span>
+						</DropdownMenu.Item>
+						<DropdownMenu.Item>
+							<i class="bi bi-gear"></i>
+							<span>Configuracion</span>
+						</DropdownMenu.Item>
+					</DropdownMenu.Group>
+					<DropdownMenu.Separator />
 					<DropdownMenu.Item>
-						<i class="bi bi-person"></i>
-						<span>Perfil</span>
+						<a href="/logout">
+							<i class="bi bi-box-arrow-right"></i>
+							<span>Cerrar sesion</span>
+						</a>
 					</DropdownMenu.Item>
-					<DropdownMenu.Item>
-						<i class="bi bi-gear"></i>
-						<span>Configuracion</span>
-					</DropdownMenu.Item>
-				</DropdownMenu.Group>
-				<DropdownMenu.Separator />
-				<DropdownMenu.Item>
-					<a href="/logout">
-						<i class="bi bi-box-arrow-right"></i>
-						<span>Cerrar sesion</span>
-					</a>
-				</DropdownMenu.Item>
-			</DropdownMenu.Content>
-		</DropdownMenu.Root>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
+		{/if}
 	</nav>
 </header>
 

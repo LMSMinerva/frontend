@@ -18,7 +18,7 @@
 	storeAuth.setRefreshToken(refreshToken || '');
 </script>
 
-<Nav user={data.user} page="Admin" />
+<Nav user={data.user} page="" />
 
 <main class="py-12">
 	{@render children()}
