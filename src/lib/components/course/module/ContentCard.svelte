@@ -1,37 +1,60 @@
 <script lang="ts">
 	import type { Content } from '$types/content';
-	import { Progress } from '$lib/components/ui/progress/index.js';
-	import * as Avatar from '$lib/components/ui/avatar/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { CategoryStore } from '$lib/stores/category';
+	import { Skeleton } from '$lib/components/ui/skeleton';
+	import { onMount } from 'svelte';
 
 	type Props = {
 		content: Content;
+		handleSelectContent: (content: Content, content_type: string) => void;
 	};
-	const { content }: Props = $props();
+	const { content, handleSelectContent }: Props = $props();
 
-	function getInstitutionAvatarFallback(institution: string) {
-		const words = institution.split(' ');
-		return words
-			.slice(0, 2)
-			.map((w) => w[0].toUpperCase())
-			.join('');
+	let contentCategory: string = $state('');
+	let contentIcon: string = $state('');
+
+	const contentIcons: Record<string, string> = {
+		pdf: '/pdf.png',
+		video: '/play.png',
+		codigo: '/code.png',
+		seleccion: '/qa.png'
+	};
+
+	async function fetchContentCategory() {
+		try {
+			const categoryStore = new CategoryStore();
+			const category = await categoryStore.getContentCategory(content.content_type);
+			contentCategory = category?.name || '';
+			contentIcon = contentIcons[contentCategory];
+		} catch (error) {
+			console.error(error);
+		}
 	}
+
+	onMount(fetchContentCategory);
 </script>
 
 <div
-	class="flex flex-row gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
+	role="button"
+	tabindex="0"
+	onclick={() => handleSelectContent(content, contentCategory)}
+	onkeydown={() => handleSelectContent(content, contentCategory)}
+	class="flex max-h-[300px] min-h-[100px] cursor-pointer flex-row items-center gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:scale-105 hover:shadow-xl"
 >
-	<div
-		class="h-[110px] w-2/5 rounded-lg bg-gradient-to-b from-[#DB4E66] via-[#A24688] to-[#4E3ABA]"
-	></div>
+	<div class="flex h-[80px] w-[80px] items-center justify-center">
+		{#if contentIcon}
+			<img src={contentIcon} alt={contentCategory} />
+		{:else}
+			<Skeleton class="h-[80px] w-[80px] rounded-full bg-gray-200" />
+		{/if}
+	</div>
 
-	<div class="flex flex-col gap-3">
+	<div class="flex w-full flex-col gap-3 overflow-hidden">
 		<div class="flex items-center gap-2">
 			<h5 class="text-lg font-semibold">{content.name}</h5>
-			<i class="bi bi-check2-square text-green-500"></i>
 		</div>
 
-		<p class="text-slate-700">{content.description}</p>
+		<p class="overflow-hidden text-ellipsis text-slate-700">{content.description}</p>
 
 		<div class="flex items-center justify-start gap-3 text-zinc-500">
 			<span class="flex items-center gap-1">

@@ -1,6 +1,7 @@
 import type { PageLoad } from './$types';
-import { mockContents } from '$lib/utils/mock';
+import type { CourseModule } from '$lib/types/module';
 import { ModuleStore } from '$lib/stores/module';
+import { ContentStore } from '$lib/stores/content';
 
 export const load = (async ({ params }) => {
     const id = params.module;
@@ -9,9 +10,13 @@ export const load = (async ({ params }) => {
 	}
 
     const moduleStore = new ModuleStore();
+    const contentStore = new ContentStore();
+
+    const module = await moduleStore.getModuleById(id);
+    const contents = contentStore.getContentsByModuleId((module as CourseModule).id);
 
     return {
-        module: moduleStore.getModuleById(id),
-        contents: mockContents()
+        module: module,
+        contents: contents
     }
 }) satisfies PageLoad;

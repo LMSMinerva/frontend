@@ -6,6 +6,8 @@ export type Content = {
     reviews: number;
     comments: number;
     rating: string;
+    metadata: string;
+    body: string;
     module: string;
     content_type: string;
 };
