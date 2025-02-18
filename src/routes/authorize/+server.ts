@@ -10,6 +10,7 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
     const credentials = Object.fromEntries(decoded) as GoogleOAuthResponse;
 
     const oathCode = credentials.code;
+    console.log("oathCode: ", oathCode);
     const response = await fetch(`${apiBaseUrl}/login-with-google/`, {
         method: 'POST',
         headers: {
@@ -19,6 +20,7 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
     });
 
     if (!response.ok) {
+        console.log(`Failed to login with Google. Status: ${response.status}, Status Text: ${response.statusText}. Respoonse: ${await response.text()}`);
         throw redirect(303, '/login');
     }
 
