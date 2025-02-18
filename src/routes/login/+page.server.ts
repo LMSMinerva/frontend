@@ -30,7 +30,7 @@ export const actions = {
 		const { refresh, access } = data;
 		*/
 
-		const refresh = "123";
+		const refresh = '123';
 		const access = btoa(adminSecret);
 
 		AuthCookies.setAuthCookies(cookies, access, refresh);

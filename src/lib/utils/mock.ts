@@ -126,8 +126,7 @@ export function getUserCourses() {
 }
 
 export async function mockContents() {
-
-	await new Promise(resolve => setTimeout(resolve, 3000));
+	await new Promise((resolve) => setTimeout(resolve, 3000));
 
 	return [
 		{
@@ -139,7 +138,7 @@ export async function mockContents() {
 			comments: 32,
 			rating: '4.5',
 			module: 'module1',
-			content_type: 'video_content',
+			content_type: 'video_content'
 		},
 		{
 			id: '2',
@@ -150,7 +149,7 @@ export async function mockContents() {
 			comments: 32,
 			rating: '4.5',
 			module: 'module1',
-			content_type: 'assesment_content',
+			content_type: 'assesment_content'
 		},
 		{
 			id: '3',
@@ -161,7 +160,7 @@ export async function mockContents() {
 			comments: 32,
 			rating: '4.5',
 			module: 'module1',
-			content_type: 'assesment_content',
+			content_type: 'assesment_content'
 		}
-	]
+	];
 }

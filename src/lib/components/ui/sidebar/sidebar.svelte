@@ -51,7 +51,7 @@
 {:else}
 	<div
 		bind:this={ref}
-		class="relative group peer hidden text-sidebar-foreground md:block"
+		class="group peer relative hidden text-sidebar-foreground md:block"
 		data-state={sidebar.state}
 		data-collapsible={sidebar.state === 'collapsed' ? collapsible : ''}
 		data-variant={variant}
@@ -84,7 +84,7 @@
 		>
 			<div
 				data-sidebar="sidebar"
-				class="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow rounded-lg"
+				class="flex h-full w-full flex-col rounded-lg bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
 			>
 				{@render children?.()}
 			</div>

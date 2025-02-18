@@ -9,16 +9,16 @@ export const load = (async ({ params }) => {
 		throw new Error('Slug is required');
 	}
 
-	console.log("Loading from server layout course..", slug);
+	console.log('Loading from server layout course..', slug);
 
 	const institutionStore = new InstitutionStore();
 	const courseStore = new CourseStore();
-	
+
 	const course = await courseStore.getCourseByAlias(slug);
 	const institution = institutionStore.getInstitution((course as Course).institution);
 
 	return {
 		course: course,
-		institution: institution,
+		institution: institution
 	};
 }) satisfies LayoutServerLoad;

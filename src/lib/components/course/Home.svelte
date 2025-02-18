@@ -43,7 +43,7 @@
 		{:then institution}
 			<Avatar.Root class="h-10 w-10">
 				<Avatar.Image src={institution?.icon} alt={institution?.name} />
-				<Avatar.Fallback>{getInitials(institution?.name || "NN")}</Avatar.Fallback>
+				<Avatar.Fallback>{getInitials(institution?.name || 'NN')}</Avatar.Fallback>
 			</Avatar.Root>
 			<h3 class="text-xl font-bold">{institution?.name}</h3>
 		{:catch error}
