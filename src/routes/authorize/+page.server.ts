@@ -1,11 +1,14 @@
+import type { PageServerLoad } from './$types';
 import type { RequestHandler } from './$types';
 import { redirect } from '@sveltejs/kit';
 import type { GoogleOAuthResponse, GoogleSignInResponse } from '$lib/types/auth';
 import { apiBaseUrl } from '$lib/utils/constants';
 import { AuthCookies } from '$lib/server/auth';
 import type { User } from '$lib/types/user';
+import { invalidateAll } from '$app/navigation';
 
-export const GET: RequestHandler = async ({ url, cookies }) => {
+
+export const load = (async ({ url, cookies }) => {
     const credentialsText = url.searchParams.toString();
 	const decoded = new URLSearchParams(credentialsText);
 	const credentials = Object.fromEntries(decoded) as GoogleOAuthResponse;
@@ -41,5 +44,8 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	AuthCookies.setAuthCookies(cookies, access_token, '');
 	AuthCookies.setUserData(cookies, userData);
 
-	return redirect(303, '/');
-};
+    await invalidateAll();
+    
+    redirect(303, '/');
+
+}) satisfies PageServerLoad;
