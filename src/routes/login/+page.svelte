@@ -75,10 +75,6 @@
 	}
 </script>
 
-<svelte:head>
-	<script src="https://accounts.google.com/gsi/client" async></script>
-</svelte:head>
-
 <div class="flex min-h-screen items-center justify-center">
 	<Card.Root class="w-full max-w-md">
 		<Card.Header class="space-y-1">
