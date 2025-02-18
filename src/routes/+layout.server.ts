@@ -6,7 +6,6 @@ export const load = (async ({ cookies }) => {
 	const { accessToken, refreshToken } = AuthCookies.getAuthTokens(cookies);
 
 	const user: User | null = AuthCookies.getUserFromCookies(cookies);
-	console.log("Getting user from cookies", user);
 	return {
 		user,
 		accessToken,
