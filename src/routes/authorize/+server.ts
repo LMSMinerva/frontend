@@ -10,7 +10,6 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
     const credentials = Object.fromEntries(decoded) as GoogleOAuthResponse;
 
     const oathCode = credentials.code;
-    console.log("oathCode: ", oathCode);
     const response = await fetch(`${apiBaseUrl}/login-with-google/`, {
         method: 'POST',
         headers: {
