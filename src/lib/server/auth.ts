@@ -4,7 +4,7 @@ import type { User } from '$lib/types/user';
 export class AuthCookies {
 	private static readonly ACCESS_TOKEN_COOKIE_NAME = 'access_token';
 	private static readonly REFRESH_TOKEN_COOKIE_NAME = 'refresh_token';
-	private static readonly USER_COOKIE_NAME = 'user';
+	private static readonly USER_COOKIE_NAME = 'user_data';
 	private static readonly MAX_AGE = 60 * 60 * 24 * 7; // 1 week
 
 

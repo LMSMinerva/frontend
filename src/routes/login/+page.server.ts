@@ -34,6 +34,13 @@ export const actions = {
 		const access = btoa(adminSecret);
 
 		AuthCookies.setAuthCookies(cookies, access, refresh);
+		AuthCookies.setUserData(cookies, {
+			username: 'jlargo',
+			fullname: 'Juan Carlos L',
+			email: 'jlargo@example.com',
+			avatar:
+				'https://lh3.googleusercontent.com/a/ACg8ocIX32rPXI4A4mrR7Jh7EMnpvVSYydEn8KqX7mIrdO0l6MvFYgBE=s96-c'
+		});
 
 		throw redirect(303, '/');
 	}
