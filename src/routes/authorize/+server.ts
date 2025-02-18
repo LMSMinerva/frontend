@@ -1,12 +1,12 @@
+import type { RequestHandler } from './$types';
 import { redirect } from '@sveltejs/kit';
 import type { GoogleOAuthResponse, GoogleSignInResponse } from '$lib/types/auth';
 import { apiBaseUrl } from '$lib/utils/constants';
 import { AuthCookies } from '$lib/server/auth';
 import type { User } from '$lib/types/user';
-import type { PageServerLoad } from './$types';
 
-export const load = (async ({ url, cookies }) => {
-	const credentialsText = url.searchParams.toString();
+export const GET: RequestHandler = async ({ url, cookies }) => {
+    const credentialsText = url.searchParams.toString();
 	const decoded = new URLSearchParams(credentialsText);
 	const credentials = Object.fromEntries(decoded) as GoogleOAuthResponse;
 
@@ -42,4 +42,4 @@ export const load = (async ({ url, cookies }) => {
 	AuthCookies.setUserData(cookies, userData);
 
 	throw redirect(303, '/');
-}) satisfies PageServerLoad;
+};
