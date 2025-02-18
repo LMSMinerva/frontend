@@ -3,6 +3,8 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
+	import { onMount } from 'svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	type LoginForm = {
 		username: string;
@@ -73,6 +75,10 @@
 		document.body.appendChild(form);
 		form.submit();
 	}
+
+	onMount(async () => {
+		await invalidateAll();
+	});
 </script>
 
 <div class="flex min-h-screen items-center justify-center">
