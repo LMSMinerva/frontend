@@ -11,21 +11,12 @@
 	const { content, handleSelectContent }: Props = $props();
 
 	let contentCategory: string = $state('');
-	let contentIcon: string = $state('');
-
-	const contentIcons: Record<string, string> = {
-		pdf: '/pdf.png',
-		video: '/play.png',
-		codigo: '/code.png',
-		seleccion: '/qa.png'
-	};
 
 	async function fetchContentCategory() {
 		try {
 			const categoryStore = new CategoryStore();
 			const category = await categoryStore.getContentCategory(content.content_type);
 			contentCategory = category?.name || '';
-			contentIcon = contentIcons[contentCategory];
 		} catch (error) {
 			console.error(error);
 		}
@@ -42,10 +33,16 @@
 	class="flex max-h-[300px] min-h-[100px] cursor-pointer flex-row items-center gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:scale-105 hover:shadow-xl"
 >
 	<div class="flex h-[80px] w-[80px] items-center justify-center">
-		{#if contentIcon}
-			<img src={contentIcon} alt={contentCategory} />
+		{#if contentCategory === 'video'}
+			<i class="bi bi-play-circle-fill" style="font-size:80px; color:mediumpurple;"></i>
+		{:else if contentCategory === 'pdf'}
+			<i class="bi bi-file-pdf-fill" style="font-size:80px; color:mediumpurple;"></i>
+		{:else if contentCategory === 'seleccion'}
+			<i class="bi bi-question-circle-fill" style="font-size:80px; color:mediumpurple;"></i>
+		{:else if contentCategory === 'codigo'}
+			<i class="bi bi-file-code-fill" style="font-size:80px; color:mediumpurple;"></i>
 		{:else}
-			<Skeleton class="h-[80px] w-[80px] rounded-full bg-gray-200" />
+			<i class="bi bi-arrow-repeat" style="font-size:80px; color:mediumpurple;"></i>
 		{/if}
 	</div>
 
