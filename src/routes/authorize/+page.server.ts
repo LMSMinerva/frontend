@@ -44,8 +44,6 @@ export const load = (async ({ url, cookies }) => {
 	AuthCookies.setAuthCookies(cookies, access_token, '');
 	AuthCookies.setUserData(cookies, userData);
 
-    await invalidateAll();
-    
-    redirect(303, '/');
+    return {};
 
 }) satisfies PageServerLoad;

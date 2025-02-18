@@ -2,12 +2,14 @@
 	import { onMount } from 'svelte';
     import type { PageData } from './$types';
 	import { browser } from '$app/environment';
+	import { goto, invalidateAll } from '$app/navigation';
 
     let { data }: { data: PageData } = $props();
 
-    onMount(() => {
+    onMount(async () => {
         if (browser) {
-            window.location.pathname = "/";
+            await invalidateAll();
+            await goto("/", { invalidateAll: true })
         }
     });
 </script>
