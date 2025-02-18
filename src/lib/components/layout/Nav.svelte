@@ -17,9 +17,9 @@
 
 <header class="flex items-center justify-between border-b bg-white px-6 py-4">
 	<div class="flex items-center space-x-4">
-		<h1 class="text-2xl font-bold">
+		<a href="/" class="text-2xl font-bold">
 			{'Minerva' + (page ? ` - ${page}` : '')}
-		</h1>
+		</a>
 		<Separator orientation="vertical" />
 		<a class="text-sm font-medium" href="/admin/cursos">Cursos</a>
 	</div>
