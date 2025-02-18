@@ -79,13 +79,6 @@
 	<script src="https://accounts.google.com/gsi/client" async></script>
 </svelte:head>
 
-<div
-	id="g_id_onload"
-	data-client_id="927512412726-qbrkf1gcel5f2gnsk6tsegq8n1gjfni9.apps.googleusercontent.com"
-	data-login_uri="/authorize"
-	data-auto_prompt="false"
-></div>
-
 <div class="flex min-h-screen items-center justify-center">
 	<Card.Root class="w-full max-w-md">
 		<Card.Header class="space-y-1">
@@ -149,18 +142,6 @@
 					<span class="bg-background px-2 text-muted-foreground"> O </span>
 				</div>
 			</div>
-
-			<!--
-			<div
-				class="g_id_signin w-full"
-				data-type="standard"
-				data-size="large"
-				data-theme="outline"
-				data-text="sign_in_with"
-				data-shape="rectangular"
-				data-logo_alignment="left"
-			></div>
-			-->
 
 			<div class="text-center text-sm text-gray-600">
 				<span>¿No tienes una cuenta?</span>
