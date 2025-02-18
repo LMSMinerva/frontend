@@ -44,6 +44,6 @@ export const actions = {
 				'https://lh3.googleusercontent.com/a/ACg8ocIX32rPXI4A4mrR7Jh7EMnpvVSYydEn8KqX7mIrdO0l6MvFYgBE=s96-c'
 		});
 
-		throw redirect(303, '/');
+		redirect(303, '/');
 	}
 } satisfies Actions;
