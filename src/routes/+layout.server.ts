@@ -1,21 +1,15 @@
 import type { LayoutServerLoad } from './$types';
 import type { User } from '$types/user';
+import { AuthCookies } from '$lib/server/auth';
 
 export const load = (async ({ cookies }) => {
-	const authToken = cookies.get('authToken');
-	const refreshToken = cookies.get('refreshToken');
+	const { accessToken, refreshToken } = AuthCookies.getAuthTokens(cookies);
 
-	const user: User = {
-		username: 'jlargo',
-		fullname: 'Juan Carlos Largo Buenahora',
-		email: 'jlargo@example.com',
-		avatar:
-			'https://lh3.googleusercontent.com/a/ACg8ocIX32rPXI4A4mrR7Jh7EMnpvVSYydEn8KqX7mIrdO0l6MvFYgBE=s96-c'
-	};
+	const user: User | null = AuthCookies.getUserFromCookies(cookies);
 
 	return {
 		user,
-		authToken,
+		accessToken,
 		refreshToken
 	};
 }) satisfies LayoutServerLoad;

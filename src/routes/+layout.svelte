@@ -12,10 +12,8 @@
 	import type { Snippet } from 'svelte';
 	let { children, data } = $props();
 
-	const accessToken = data.authToken;
-	const refreshToken = data.refreshToken;
-	storeAuth.setAccessToken(accessToken || '');
-	storeAuth.setRefreshToken(refreshToken || '');
+	storeAuth.setAccessToken(data.accessToken || '');
+	storeAuth.setRefreshToken(data.refreshToken || '');
 </script>
 
 <Nav user={data.user} page="" />
