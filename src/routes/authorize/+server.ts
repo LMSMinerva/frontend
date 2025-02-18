@@ -27,5 +27,5 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
 
     AuthCookies.setAuthCookies(cookies, access_token, '');
 
-    return json({ credentials });
+    throw redirect(303, '/login');
 };
