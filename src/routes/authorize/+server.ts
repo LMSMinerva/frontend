@@ -30,10 +30,10 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
 	const { access_token, user } = data;
 
 	const userData: User = {
-		username: user.username,
-		fullname: `${user.profile.given_name} ${user.profile.family_name}`,
-		email: user.profile.email,
-		avatar: user.profile.picture
+		username: user?.username,
+		fullname: `${user?.profile?.given_name} ${user?.profile?.family_name}`,
+		email: user?.profile?.email,
+		avatar: user?.profile?.picture
 	};
 
 	console.log('User data:', userData);
