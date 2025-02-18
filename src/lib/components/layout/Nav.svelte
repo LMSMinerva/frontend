@@ -62,7 +62,7 @@
 					</DropdownMenu.Group>
 					<DropdownMenu.Separator />
 					<DropdownMenu.Item>
-						<a href="/logout">
+						<a href="/logout" data-sveltekit-reload>
 							<i class="bi bi-box-arrow-right"></i>
 							<span>Cerrar sesion</span>
 						</a>
