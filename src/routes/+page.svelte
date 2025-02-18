@@ -31,7 +31,7 @@
 </svelte:head>
 
 <main class="flex flex-col gap-8 px-12">
-	<h2 class="text-2xl font-semibold">Bienvenid@, {user.fullname}</h2>
+	<h2 class="text-2xl font-semibold">Bienvenid@, {user?.fullname || "Estudiante"}</h2>
 
 	<div class="grid grid-cols-12 gap-x-12">
 		<div class="col-span-8 flex flex-col gap-2">
