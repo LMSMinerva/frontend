@@ -5,11 +5,9 @@ import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
 
 export const load = (async ({ cookies }) => {
-	const authToken = cookies.get('authToken');
+	const isAuthenticated = AuthCookies.hasAuthCookies(cookies);
 
-	if (authToken) {
-		throw redirect(303, '/');
-	}
+	if (isAuthenticated) throw redirect(303, '/');
 
 	return {};
 }) satisfies PageServerLoad;
