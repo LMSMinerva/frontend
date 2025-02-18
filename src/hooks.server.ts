@@ -1,17 +1,15 @@
 import { redirect, type Handle } from '@sveltejs/kit';
+import { AuthCookies } from '$lib/server/auth';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const authToken = event.cookies.get('authToken');
-	const refreshToken = event.cookies.get('refreshToken');
-
-	const isValid = authToken !== undefined && refreshToken !== undefined;
+	const hasAuthCookies = AuthCookies.hasAuthCookies(event.cookies);
 	const isLogin = event.url.pathname === '/login' || event.url.pathname === '/authorize';
 
 	if (isLogin) {
 		return await resolve(event);
 	}
 
-	if (!isValid) {
+	if (!hasAuthCookies) {
 		throw redirect(303, '/login');
 	}
 

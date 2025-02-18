@@ -1,14 +1,13 @@
+import { AuthCookies } from '$lib/server/auth';
 import { adminSecret } from '$lib/utils/constants';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
 
 export const load = (async ({ cookies }) => {
-	const authToken = cookies.get('authToken');
+	const isAuthenticated = AuthCookies.hasAuthCookies(cookies);
 
-	if (authToken) {
-		throw redirect(303, '/');
-	}
+	if (isAuthenticated) throw redirect(303, '/');
 
 	return {};
 }) satisfies PageServerLoad;
@@ -34,23 +33,7 @@ export const actions = {
 		const refresh = "123";
 		const access = btoa(adminSecret);
 
-		const maxAge = 60 * 60 * 24 * 7;
-
-		cookies.set('authToken', access, {
-			maxAge: maxAge,
-			path: '/',
-			httpOnly: true,
-			secure: true,
-			sameSite: 'lax'
-		});
-
-		cookies.set('refreshToken', refresh, {
-			maxAge: maxAge,
-			path: '/',
-			httpOnly: true,
-			secure: true,
-			sameSite: 'lax'
-		});
+		AuthCookies.setAuthCookies(cookies, access, refresh);
 
 		throw redirect(303, '/');
 	}
