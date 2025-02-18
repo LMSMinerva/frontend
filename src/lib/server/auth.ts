@@ -1,8 +1,10 @@
 import type { Cookies } from "@sveltejs/kit";
+import type { User } from "$lib/types/user";
 
 export class AuthCookies {
     private static readonly ACCESS_TOKEN_COOKIE_NAME = 'access_token';
     private static readonly REFRESH_TOKEN_COOKIE_NAME = 'refresh_token';
+    private static readonly USER_COOKIE_NAME = 'user';
     private static readonly MAX_AGE = 60 * 60 * 24 * 7; // 1 week
 
     static setAuthCookies(cookies: Cookies, accessToken: string, refreshToken: string): void {
@@ -13,10 +15,21 @@ export class AuthCookies {
     static deleteAuthCookies(cookies: Cookies): void {
         this.deleteCookie(cookies, this.ACCESS_TOKEN_COOKIE_NAME);
         this.deleteCookie(cookies, this.REFRESH_TOKEN_COOKIE_NAME);
+        this.deleteCookie(cookies, this.USER_COOKIE_NAME);
     }
 
     static hasAuthCookies(cookies: Cookies): boolean {
         return cookies.get(this.ACCESS_TOKEN_COOKIE_NAME) !== undefined;
+    }
+
+    static setUserData(cookies: Cookies, user: User): void {
+        this.setCookie(cookies, this.USER_COOKIE_NAME, JSON.stringify(user));
+    }
+
+    static getUserFromCookies(cookies: Cookies): User | null {
+        const data = cookies.get(this.USER_COOKIE_NAME);
+        if (!data) return null
+        return JSON.parse(data);
     }
 
     private static setCookie(cookies: Cookies, cookieName: string, cookieValue: string): void {
@@ -25,7 +38,7 @@ export class AuthCookies {
             path: '/',
             httpOnly: true,
             secure: true,
-            sameSite: 'strict'
+            sameSite: 'strict',
         });
     }
 

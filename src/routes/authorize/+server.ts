@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 import type { GoogleOAuthResponse, GoogleSignInResponse } from '$lib/types/auth';
 import { apiBaseUrl } from '$lib/utils/constants';
 import { AuthCookies } from '$lib/server/auth';
+import type { User } from '$lib/types/user';
 
 export const GET: RequestHandler = async ({ request, url, cookies }) => {
     const credentialsText = url.searchParams.toString();
@@ -26,7 +27,15 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
     const data: GoogleSignInResponse = await response.json();
     const { access_token, user } = data;
 
+    const userData: User = {
+        username: user.username,
+        fullname: `${user.profile.given_name} ${user.profile.family_name}`,
+        email: user.profile.email,
+        avatar: user.profile.picture,
+    }
+
     AuthCookies.setAuthCookies(cookies, access_token, '');
+    AuthCookies.setUserData(cookies, userData);
 
     throw redirect(303, '/');
 };
