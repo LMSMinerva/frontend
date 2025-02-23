@@ -11,3 +11,11 @@ export type Content = {
 	module: string;
 	content_type: string;
 };
+
+export type ContentInteraction = {
+	id: string;
+	completed: boolean;
+	rating: number;
+	user: number;
+	content: string;
+}
