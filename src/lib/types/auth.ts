@@ -22,13 +22,11 @@ export type UserProfile = {
 	locale: string;
 };
 
-export type User = {
-	id: number;
-	username: string;
-	profile: UserProfile;
-};
-
-export type GoogleSignInResponse = {
+export type SignInResponse = {
 	access_token: string;
-	user: User;
+	user: {
+		id: number;
+		username: string;
+		profile: UserProfile;
+	};
 };

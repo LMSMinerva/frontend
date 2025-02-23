@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-import type { GoogleOAuthResponse, GoogleSignInResponse } from '$lib/types/auth';
+import type { GoogleOAuthResponse, SignInResponse } from '$lib/types/auth';
 import { apiBaseUrl } from '$lib/utils/constants';
 import { AuthCookies } from '$lib/server/auth';
 import type { User } from '$lib/types/user';
@@ -28,7 +28,7 @@ export const load = (async ({ url, cookies }) => {
 		throw redirect(303, '/login');
 	}
 
-	const data: GoogleSignInResponse = await response.json();
+	const data: SignInResponse = await response.json();
 	const { access_token, user } = data;
 
 	const userData: User = {
