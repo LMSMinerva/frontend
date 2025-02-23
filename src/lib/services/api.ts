@@ -9,7 +9,7 @@ function createHeaders(options: RequestInit = {}): HeadersInit {
 	const token = getAuthToken();
 	return {
 		'Content-Type': 'application/json',
-		authorization: `Basic ${token}`,
+		Authorization: `Bearer ${token}`,
 		...options.headers
 	};
 }
