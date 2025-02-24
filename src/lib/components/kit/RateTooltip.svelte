@@ -4,7 +4,7 @@
     import StarRate from './StarRate.svelte';
 
 	type Props = {
-		rate: number;
+		rate?: number;
         onRateChange: (rate: number) => void;
 		onRateDelete: () => void;
 		children: Snippet;

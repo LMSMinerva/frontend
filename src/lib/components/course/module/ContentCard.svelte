@@ -14,7 +14,7 @@
 	const { content, handleSelectContent }: Props = $props();
 	let contentCategory: string = $state('');
 	let userInteraction: ContentInteraction | null = $state(null);
-	let userRating: number = $state(-1);
+	let userRating: number | undefined = $state(undefined);
 
 	const storeContent = new ContentStore();
 
@@ -42,6 +42,7 @@
 		if (userInteraction) {
 			storeContent.deleteRate(userInteraction.id as string);
 			userInteraction = null;
+			userRating = undefined;
 		}
 	}
 
@@ -100,7 +101,7 @@
 
 			<RateTooltip bind:rate={userRating} onRateChange={handleRateChange} onRateDelete={handleRateDelete}>
 				<span class="flex items-center gap-1">
-					<i class={`bi ${userRating !== -1 ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
+					<i class={`bi ${userRating	 ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
 					<span>{content.rating}</span>
 				</span>
 			</RateTooltip>
