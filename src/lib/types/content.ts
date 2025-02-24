@@ -13,7 +13,7 @@ export type Content = {
 };
 
 export type ContentInteraction = {
-	id: string;
+	id?: string;
 	completed: boolean;
 	rating: number;
 	user: number;
