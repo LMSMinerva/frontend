@@ -4,15 +4,13 @@
     import StarRate from './StarRate.svelte';
 
 	type Props = {
-		rate?: number;
-        onRate: (rate: number) => void;
-		onDeleteRate: () => void;
+		rate: number;
+        onRateChange: (rate: number) => void;
+		onRateDelete: () => void;
 		children: Snippet;
     };
 
-	const { rate, onRate, onDeleteRate, children  }: Props = $props();
-
-	let internalRate = $state(rate);
+	let { rate = $bindable(), onRateChange, onRateDelete, children  }: Props = $props();
 </script>
 
 <Tooltip.Provider delayDuration={100}>
@@ -22,9 +20,9 @@
 		</Tooltip.Trigger>
 		<Tooltip.Content>
 		    <StarRate 
-                bind:rate={internalRate}
-                onRate={(rate) => onRate(rate)} 
-                onDeleteRate={() => onDeleteRate()} 
+                bind:rate={rate}
+                onRate={(rate) => onRateChange(rate)} 
+                onDeleteRate={() => onRateDelete()} 
             />
 		</Tooltip.Content>
 	</Tooltip.Root>
