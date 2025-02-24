@@ -29,7 +29,7 @@
 	}
 </script>
 
-<div class="flex items-center gap-1 border rounded">
+<div class="flex items-center gap-1">
     {#each { length: max }, index (index)}
         {@const active = index <= hoveredIndex || index <= selectedIndex}
         <button 
