@@ -20,7 +20,7 @@ export const load = (async ({ cookies }) => {
 export const actions = {
 	default: async ({ request, cookies }) => {
 		const form = await request.formData();
-		const username = form.get('username');
+		const email = form.get('email');
 		const password = form.get('password');
 
 		const response: SignInResponse = await $api('/login-with-email/', {
@@ -29,7 +29,7 @@ export const actions = {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				email: username,
+				email: email,
 				password: password
 			})
 		});

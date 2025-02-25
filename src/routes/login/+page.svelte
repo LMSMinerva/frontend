@@ -7,29 +7,29 @@
 	import { invalidateAll } from '$app/navigation';
 
 	type LoginForm = {
-		username: string;
+		email: string;
 		password: string;
 	};
 
 	let isLoading = $state(false);
 	let form: HTMLFormElement;
 	const formData: LoginForm = $state({
-		username: '',
+		email: '',
 		password: ''
 	});
 
 	async function onsubmit() {
 		isLoading = true;
 
-		if (!formData.username || !formData.password) {
+		if (!formData.email || !formData.password) {
 			alert('Por favor, rellena todos los campos');
 		}
 
-		const username = document.createElement('input');
-		username.type = 'hidden';
-		username.name = 'username';
-		username.value = formData.username;
-		form.appendChild(username);
+		const email = document.createElement('input');
+		email.type = 'hidden';
+		email.name = 'email';
+		email.value = formData.email;
+		form.appendChild(email);
 
 		const password = document.createElement('input');
 		password.type = 'hidden';
@@ -98,7 +98,7 @@
 						id="email"
 						type="text"
 						placeholder="m@example.com"
-						bind:value={formData.username}
+						bind:value={formData.email}
 						required
 					/>
 				</div>
