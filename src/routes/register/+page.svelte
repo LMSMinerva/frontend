@@ -12,12 +12,6 @@
 	import { toast } from 'svelte-sonner';
 	import api from '$lib/services/api';
 
-	const df = new DateFormatter('en-US', {
-		dateStyle: 'long'
-	});
-
-	let formElement: HTMLFormElement;
-
 	type FormData = {
 		firstName: string;
 		lastName: string;
@@ -27,6 +21,9 @@
 		password: string;
 		confirmPassword: string;
 	};
+
+	let formElement: HTMLFormElement;
+	const df = new DateFormatter('en-US', { dateStyle: 'long' });
 
 	let isLoading = $state(false);
 	let error = $state(null);
