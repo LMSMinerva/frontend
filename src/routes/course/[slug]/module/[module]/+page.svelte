@@ -6,6 +6,9 @@
 	import type { CourseModule } from '$lib/types/module';
 	import type { Content } from '$lib/types/content';
 	import { Skeleton } from '$lib/components/ui/skeleton';
+	import CommentsComponent from '$lib/components/kit/comments/Comments.svelte';
+	import type { Comment } from '$lib/types/comment';
+	import { CommentStore } from '$lib/stores/comments';
 
 	let { data }: { data: PageData } = $props();
 
@@ -15,10 +18,17 @@
 	const modulo: CourseModule | null = $state(data.module);
 	let contents: Promise<Content[]> = $state(data.contents);
 	let selectedContent: Content | null = $state(null);
+	let contentComments: Comment[] = $state([]);
+	let loadingComments = $state(false);
 
-	function selectContent(content: Content) {
+	const storeComments = new CommentStore();
+	async function selectContent(content: Content) {
 		selectedContent = content;
+		loadingComments = true;
+		contentComments = await storeComments.fetchComments(content.id);
+		loadingComments = false;
 	}
+	
 </script>
 
 <div class="space-y-4">
@@ -68,10 +78,9 @@
 			<div class="col-span-7 flex flex-col gap-4">
 				{#if selectedContent}
 					<ContentVisualization {selectedContent} />
+					<CommentsComponent comments={contentComments} content={selectedContent} isLoading={loadingComments}/>
 				{:else}
-					<Card class="h-full p-4 text-center text-gray-500"
-						>Selecciona un contenido para ver más detalles.</Card
-					>
+					<Card class="h-full p-4 text-center text-gray-500">Selecciona un contenido para ver más detalles.</Card>
 				{/if}
 			</div>
 		</div>
