@@ -4,6 +4,7 @@
 	import Nav from '$components/layout/Nav.svelte';
 	import Footer from '$components/layout/Footer.svelte';
 	import type { Snippet } from 'svelte';
+	import { Toaster } from "$lib/components/ui/sonner/index.js";
 
 	import { storeAuth } from '$lib/stores/auth';
 	
@@ -26,3 +27,5 @@
 </main>
 
 <Footer />
+
+<Toaster />
