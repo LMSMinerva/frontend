@@ -32,6 +32,7 @@ export const load = (async ({ url, cookies }) => {
 	const { access_token, user } = data;
 
 	const userData: User = {
+		id: user.id,
 		username: user?.username,
 		fullname: `${user?.profile?.given_name} ${user?.profile?.family_name}`,
 		email: user?.profile?.email,

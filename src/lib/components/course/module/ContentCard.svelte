@@ -1,16 +1,22 @@
 <script lang="ts">
-	import type { Content } from '$types/content';
+	import type { Content, ContentInteraction } from '$types/content';
 	import { CategoryStore } from '$lib/stores/category';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import { onMount } from 'svelte';
+	import RateTooltip from '$lib/components/kit/RateTooltip.svelte';
+	import { ContentStore } from '$lib/stores/content';
+	import { storeAuth } from '$lib/stores/auth';
 
 	type Props = {
 		content: Content;
 		handleSelectContent: (content: Content, content_type: string) => void;
 	};
 	const { content, handleSelectContent }: Props = $props();
-
 	let contentCategory: string = $state('');
+	let userInteraction: ContentInteraction | null = $state(null);
+	let userRating: number | undefined = $state(undefined);
+
+	const storeContent = new ContentStore();
 
 	async function fetchContentCategory() {
 		try {
@@ -22,7 +28,36 @@
 		}
 	}
 
-	onMount(fetchContentCategory);
+	async function handleRateChange(rate: number) {
+		if (userInteraction !== null) {
+			const interaction = await storeContent.updateRate(userInteraction.id as string, rate, userInteraction.completed);
+			userInteraction = interaction;
+		} else {
+			const interaction = await storeContent.rateContent(rate, false, content.id);
+			userInteraction = interaction;
+		}
+	}	
+
+	async function handleRateDelete() {
+		if (userInteraction) {
+			storeContent.deleteRate(userInteraction.id as string);
+			userInteraction = null;
+			userRating = undefined;
+		}
+	}
+
+	onMount(async () => {
+		fetchContentCategory();
+		
+		const interactions = await storeContent.getContentInteractions(content.id);
+		console.log("User: ", storeAuth.getUser()?.id);
+		
+		const interaction = interactions.find((interaction) => interaction.user === storeAuth.getUser()?.id);
+		if (interaction) {
+			userInteraction = interaction;
+			userRating = interaction.rating;
+		}
+	});
 </script>
 
 <div
@@ -30,7 +65,7 @@
 	tabindex="0"
 	onclick={() => handleSelectContent(content, contentCategory)}
 	onkeydown={() => handleSelectContent(content, contentCategory)}
-	class="flex max-h-[300px] min-h-[100px] cursor-pointer flex-row items-center gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:scale-105 hover:shadow-xl"
+	class="flex max-h-[300px] min-h-[100px] cursor-pointer flex-row items-center gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:shadow-xl"
 >
 	<div class="flex h-[80px] w-[80px] items-center justify-center">
 		{#if contentCategory === 'video'}
@@ -64,10 +99,12 @@
 				<span>{content.comments}</span>
 			</span>
 
-			<span class="flex items-center gap-1">
-				<i class="bi bi-star"></i>
-				<span>{content.rating}</span>
-			</span>
+			<RateTooltip bind:rate={userRating} onRateChange={handleRateChange} onRateDelete={handleRateDelete}>
+				<span class="flex items-center gap-1">
+					<i class={`bi ${userRating	 ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
+					<span>{content.rating}</span>
+				</span>
+			</RateTooltip>
 		</div>
 	</div>
 </div>

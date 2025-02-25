@@ -1,18 +1,23 @@
 <script lang="ts">
+	import '$styles/app.scss';
 	import type { LayoutData } from './$types';
+	import Nav from '$components/layout/Nav.svelte';
+	import Footer from '$components/layout/Footer.svelte';
+	import type { Snippet } from 'svelte';
+	import { Toaster } from "$lib/components/ui/sonner/index.js";
+
 	import { storeAuth } from '$lib/stores/auth';
+	
 	type Props = {
 		children: Snippet;
 		data: LayoutData;
 	};
-
-	import '$styles/app.scss';
-	import Nav from '$components/layout/Nav.svelte';
-	import Footer from '$components/layout/Footer.svelte';
-	import type { Snippet } from 'svelte';
+	
 	let { children, data }: Props = $props();
+
 	storeAuth.setAccessToken(data.accessToken || '');
 	storeAuth.setRefreshToken(data.refreshToken || '');
+	if (data.user !== null) storeAuth.setUser(data.user);
 </script>
 
 <Nav user={data.user} page="" />
@@ -22,3 +27,5 @@
 </main>
 
 <Footer />
+
+<Toaster />

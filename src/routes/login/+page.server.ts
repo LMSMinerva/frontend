@@ -37,6 +37,7 @@ export const actions = {
 		const { access_token, user } = response;
 	
 		const userData: User = {
+			id: user.id,
 			username: user?.username,
 			fullname: `${user?.profile?.given_name} ${user?.profile?.family_name}`,
 			email: user?.profile?.email,
