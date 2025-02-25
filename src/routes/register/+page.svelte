@@ -16,7 +16,6 @@
 		dateStyle: 'long'
 	});
 
-	
 	let formElement: HTMLFormElement;
 
 	type FormData = {
@@ -98,6 +97,43 @@
 	let genderTriggerDisplay = $derived(
 		genderOptions.find((option) => option.value === formData.gender)?.label || 'Seleccionar género'
 	);
+
+	/*
+	 * Create form to request access token from Google's OAuth 2.0 server.
+	 */
+	 function oauthSignIn() {
+		// Google's OAuth 2.0 endpoint for requesting an access token
+		const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+		// Create <form> element to submit parameters to OAuth 2.0 endpoint.
+		const form = document.createElement('form');
+		form.setAttribute('method', 'GET'); // Send as a GET request.
+		form.setAttribute('action', oauth2Endpoint);
+
+		// Parameters to pass to OAuth 2.0 endpoint.
+		const params: Record<string, string> = {
+			client_id: '927512412726-qbrkf1gcel5f2gnsk6tsegq8n1gjfni9.apps.googleusercontent.com',
+			redirect_uri: `${window.location.origin}/authorize`,
+			response_type: 'code',
+			prompt: 'select_account',
+			scope:
+				'openid profile email https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.gender.read',
+			include_granted_scopes: 'true'
+		};
+
+		// Add form parameters as hidden input values.
+		for (const p in params) {
+			const input = document.createElement('input');
+			input.setAttribute('type', 'hidden');
+			input.setAttribute('name', p);
+			input.setAttribute('value', params[p]);
+			form.appendChild(input);
+		}
+
+		// Add form to page and submit it to open the OAuth 2.0 endpoint.
+		document.body.appendChild(form);
+		form.submit();
+	}
 </script>
 
 <div class="flex min-h-screen items-center justify-center">
@@ -237,7 +273,7 @@
 					<span class="bg-background px-2 text-muted-foreground"> O regístrate con </span>
 				</div>
 			</div>
-			<Button variant="outline" class="w-full" disabled={isLoading}>
+			<Button variant="outline" class="w-full" disabled={isLoading} onclick={oauthSignIn}>
 				{#if isLoading}
 					<i class="bi bi-arrow-repeat animate-spin leading-none"></i>
 				{:else}
