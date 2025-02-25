@@ -6,8 +6,16 @@ export type Content = {
 	reviews: number;
 	comments: number;
 	rating: string;
-	metadata: string;
+	metadata: number;
 	body: string;
+	question?: {
+		enunciado: string;
+		respuestas: {
+			id: string;
+			texto: string;
+			correcta: boolean;
+		}[],
+	}
 	module: string;
 	content_type: string;
 };

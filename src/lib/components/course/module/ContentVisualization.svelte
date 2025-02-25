@@ -6,12 +6,13 @@
 
 	type Props = {
 		selectedContent: Content;
+		contentCategory: string;
 	};
-	const { selectedContent }: Props = $props();
+	const { selectedContent, contentCategory }: Props = $props();
 
-	let contentCategory: string = $state('');
+	// let contentCategory: string = $state('');
 
-	async function fetchContentCategory() {
+	/*async function fetchContentCategory() {
 		try {
 			const categoryStore = new CategoryStore();
 			const category = await categoryStore.getContentCategory(selectedContent.content_type);
@@ -21,27 +22,21 @@
 		}
 	}
 
-	onMount(fetchContentCategory);
+	onMount(fetchContentCategory); */
 </script>
 
 <Card class="h-full p-4">
-	{#if contentCategory === 'pdf'}
-		<iframe
-			title={selectedContent.name}
-			src={selectedContent.body}
-			class="h-[500px] w-full rounded-lg border"
-		></iframe>
-	{:else if contentCategory === 'video'}
-		<iframe
-			class="h-[500px] w-full rounded-lg"
-			src={selectedContent.body}
-			title={selectedContent.name}
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerpolicy="strict-origin-when-cross-origin"
-			allowfullscreen
-		></iframe>
-	{:else}
-		<p class="text-center text-slate-700">Cargando contenido...</p>
-	{/if}
+    {#if (contentCategory === 'pdf' || contentCategory === 'video') && selectedContent.body}
+        <iframe
+            title={selectedContent.name}
+            src={selectedContent.body}
+            class="h-[500px] w-full rounded-lg {contentCategory === 'pdf' ? 'border' : ''}"
+            frameborder={contentCategory === 'video' ? '0' : undefined}
+            allow={contentCategory === 'video' ? 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' : undefined}
+            referrerpolicy={contentCategory === 'video' ? 'strict-origin-when-cross-origin' : undefined}
+            allowfullscreen={contentCategory === 'video' ? true : undefined}
+        ></iframe>
+    {:else}
+        <p class="text-center text-slate-700">Cargando contenido...</p>
+    {/if}
 </Card>

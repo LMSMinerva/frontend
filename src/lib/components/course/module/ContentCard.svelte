@@ -30,13 +30,17 @@
 
 	async function handleRateChange(rate: number) {
 		if (userInteraction !== null) {
-			const interaction = await storeContent.updateRate(userInteraction.id as string, rate, userInteraction.completed);
+			const interaction = await storeContent.updateRate(
+				userInteraction.id as string,
+				rate,
+				userInteraction.completed
+			);
 			userInteraction = interaction;
 		} else {
 			const interaction = await storeContent.rateContent(rate, false, content.id);
 			userInteraction = interaction;
 		}
-	}	
+	}
 
 	async function handleRateDelete() {
 		if (userInteraction) {
@@ -77,7 +81,7 @@
 		{:else if contentCategory === 'codigo'}
 			<i class="bi bi-file-code-fill" style="font-size:80px; color:mediumpurple;"></i>
 		{:else}
-			<i class="bi bi-arrow-repeat" style="font-size:80px; color:mediumpurple;"></i>
+			<Skeleton class="h-20 w-20 rounded-full bg-gray-300" />
 		{/if}
 	</div>
 
@@ -101,7 +105,7 @@
 
 			<RateTooltip bind:rate={userRating} onRateChange={handleRateChange} onRateDelete={handleRateDelete}>
 				<span class="flex items-center gap-1">
-					<i class={`bi ${userRating	 ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
+					<i class={`bi ${userRating ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
 					<span>{content.rating}</span>
 				</span>
 			</RateTooltip>

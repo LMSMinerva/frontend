@@ -164,3 +164,32 @@ export async function mockContents() {
 		}
 	];
 }
+
+export async function mockQuestionContent() {
+	await new Promise((resolve) => setTimeout(resolve, 3000));
+
+	return [
+		{
+			id: '1',
+			name: 'Pregunta 1. Complejidad algorítmica',
+			description: 'Pregunta de selección múltiple con única respuesta',
+			order: 5,
+			reviews: 0,
+			comments: 0,
+			rating: '0.0',
+			metadata: 4,
+			module: '6e8377de-9783-431f-8413-2e534bb79191',
+			content_type: 'a556708d-162f-42fb-8fd0-3224a10f22b0',
+			body: '',
+			question: {
+				enunciado: '¿Cuál es la complejidad temporal del algoritmo de ordenamiento Merge Sort?',
+				respuestas: [
+					{ id: '1', texto: 'O(n)', correcta: false },
+					{ id: '2', texto: 'O(n^2)', correcta: false },
+					{ id: '3', texto: 'O(log n)', correcta: false },
+					{ id: '4', texto: 'O(n log n)', correcta: true }
+				]
+			},
+		},
+	];
+}

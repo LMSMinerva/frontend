@@ -2,9 +2,11 @@
 	import Card from '$lib/components/ui/card/card.svelte';
 	import ContentCard from '$lib/components/course/module/ContentCard.svelte';
 	import ContentVisualization from '$lib/components/course/module/ContentVisualization.svelte';
+	import QuestionVisualization from '$lib/components/course/module/QuestionVisualization.svelte';
 	import type { PageData } from './$types';
 	import type { CourseModule } from '$lib/types/module';
 	import type { Content } from '$lib/types/content';
+	import { CategoryStore } from '$lib/stores/category';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import CommentsComponent from '$lib/components/kit/comments/Comments.svelte';
 	import type { Comment } from '$lib/types/comment';
@@ -22,11 +24,18 @@
 	let loadingComments = $state(false);
 
 	const storeComments = new CommentStore();
+	const categoryStore = new CategoryStore();
+
+	let contentCategory: string = $state('');
+
 	async function selectContent(content: Content) {
 		selectedContent = content;
 		loadingComments = true;
 		contentComments = await storeComments.fetchComments(content.id);
 		loadingComments = false;
+
+		const category = await categoryStore.getContentCategory(content.content_type);
+		contentCategory = category?.name || '';
 	}
 	
 </script>
@@ -77,7 +86,11 @@
 			</div>
 			<div class="col-span-7 flex flex-col gap-4">
 				{#if selectedContent}
-					<ContentVisualization {selectedContent} />
+					{#if contentCategory === 'seleccion'}
+						<QuestionVisualization {selectedContent} {contentCategory} />
+					{:else}
+						<ContentVisualization {selectedContent} {contentCategory} />
+					{/if}
 					<CommentsComponent comments={contentComments} content={selectedContent} isLoading={loadingComments}/>
 				{:else}
 					<Card class="h-full p-4 text-center text-gray-500">Selecciona un contenido para ver más detalles.</Card>
