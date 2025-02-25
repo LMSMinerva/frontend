@@ -6,7 +6,7 @@ import type { User } from '$lib/types/user';
 export class ContentStore {
 	async getContentsByModuleId(moduleId: string): Promise<Content[]> {
 		try {
-			const contents: Content[] = await $api(`/content/?module_id=${moduleId}/`);
+			const contents: Content[] = await $api(`/module/${moduleId}/contents/`);
 			return contents;
 		} catch (error) {
 			console.error(error);
