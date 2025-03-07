@@ -6,12 +6,15 @@
 	import RateTooltip from '$lib/components/kit/RateTooltip.svelte';
 	import { ContentStore } from '$lib/stores/content';
 	import { storeAuth } from '$lib/stores/auth';
+	import { CirclePlay, FileText, LoaderCircle, MessageCircleQuestion, Code } from 'lucide-svelte';
 
 	type Props = {
 		content: Content;
+		active: boolean;
 		handleSelectContent: (content: Content, content_type: string) => void;
 	};
-	const { content, handleSelectContent }: Props = $props();
+
+	const { content, handleSelectContent, active }: Props = $props();
 	let contentCategory: string = $state('');
 	let userInteraction: ContentInteraction | null = $state(null);
 	let userRating: number | undefined = $state(undefined);
@@ -30,13 +33,17 @@
 
 	async function handleRateChange(rate: number) {
 		if (userInteraction !== null) {
-			const interaction = await storeContent.updateRate(userInteraction.id as string, rate, userInteraction.completed);
+			const interaction = await storeContent.updateRate(
+				userInteraction.id as string,
+				rate,
+				userInteraction.completed
+			);
 			userInteraction = interaction;
 		} else {
 			const interaction = await storeContent.rateContent(rate, false, content.id);
 			userInteraction = interaction;
 		}
-	}	
+	}
 
 	async function handleRateDelete() {
 		if (userInteraction) {
@@ -48,11 +55,13 @@
 
 	onMount(async () => {
 		fetchContentCategory();
-		
+
 		const interactions = await storeContent.getContentInteractions(content.id);
-		console.log("User: ", storeAuth.getUser()?.id);
-		
-		const interaction = interactions.find((interaction) => interaction.user === storeAuth.getUser()?.id);
+		console.log('User: ', storeAuth.getUser()?.id);
+
+		const interaction = interactions.find(
+			(interaction) => interaction.user === storeAuth.getUser()?.id
+		);
 		if (interaction) {
 			userInteraction = interaction;
 			userRating = interaction.rating;
@@ -65,30 +74,35 @@
 	tabindex="0"
 	onclick={() => handleSelectContent(content, contentCategory)}
 	onkeydown={() => handleSelectContent(content, contentCategory)}
-	class="flex max-h-[300px] min-h-[100px] cursor-pointer flex-row items-center gap-4 rounded-lg bg-white p-4 shadow-md transition-transform hover:shadow-xl"
+	class="flex gap-4 max-h-[300px] min-h-[100px] cursor-pointer rounded-lg border-2 border-neutral-50 bg-white p-4 shadow-md transition-all duration-300"
+	class:border-indigo-500={active}
 >
-	<div class="flex h-[80px] w-[80px] items-center justify-center">
-		{#if contentCategory === 'video'}
-			<i class="bi bi-play-circle-fill" style="font-size:80px; color:mediumpurple;"></i>
-		{:else if contentCategory === 'pdf'}
-			<i class="bi bi-file-pdf-fill" style="font-size:80px; color:mediumpurple;"></i>
-		{:else if contentCategory === 'seleccion'}
-			<i class="bi bi-question-circle-fill" style="font-size:80px; color:mediumpurple;"></i>
-		{:else if contentCategory === 'codigo'}
-			<i class="bi bi-file-code-fill" style="font-size:80px; color:mediumpurple;"></i>
-		{:else}
-			<i class="bi bi-arrow-repeat" style="font-size:80px; color:mediumpurple;"></i>
-		{/if}
+	<div class="flex gap-2">
+		<div
+			class="flex size-10 items-center justify-center rounded-full bg-indigo-50 transition-all duration-300"
+			class:bg-indigo-500={active}
+			class:text-white={active}
+		>
+			{#if contentCategory === 'video'}
+				<CirclePlay />
+			{:else if contentCategory === 'pdf'}
+				<FileText />
+			{:else if contentCategory === 'seleccion'}
+				<MessageCircleQuestion />
+			{:else if contentCategory === 'codigo'}
+				<Code />
+			{:else}
+				<LoaderCircle class="animate-spin" />
+			{/if}
+		</div>
 	</div>
 
-	<div class="flex w-full flex-col gap-3 overflow-hidden">
-		<div class="flex items-center gap-2">
-			<h5 class="text-lg font-semibold">{content.name}</h5>
-		</div>
+	<div class="flex flex-col w-full gap-1">
+		<h5 class="text-lg font-semibold">{content.name}</h5>
 
-		<p class="overflow-hidden text-ellipsis text-slate-700">{content.description}</p>
+		<p class="overflow-hidden text-ellipsis text-muted-foreground">{content.description}</p>
 
-		<div class="flex items-center justify-start gap-3 text-zinc-500">
+		<div class="flex items-center justify-start gap-3 text-zinc-500 mt-4">
 			<span class="flex items-center gap-1">
 				<i class="bi bi-award"></i>
 				<span>{content.reviews}</span>
@@ -99,10 +113,14 @@
 				<span>{content.comments}</span>
 			</span>
 
-			<RateTooltip bind:rate={userRating} onRateChange={handleRateChange} onRateDelete={handleRateDelete}>
+			<RateTooltip
+				bind:rate={userRating}
+				onRateChange={handleRateChange}
+				onRateDelete={handleRateDelete}
+			>
 				<span class="flex items-center gap-1">
-					<i class={`bi ${userRating	 ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
-					<span>{content.rating}</span>
+					<i class={`bi ${userRating ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
+					<span>{content?.rating || "..."} (30)</span>
 				</span>
 			</RateTooltip>
 		</div>

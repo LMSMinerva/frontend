@@ -28,7 +28,6 @@
 		contentComments = await storeComments.fetchComments(content.id);
 		loadingComments = false;
 	}
-	
 </script>
 
 <div class="space-y-4">
@@ -71,7 +70,7 @@
 					<Skeleton class="h-full w-full bg-gray-200" />
 				{:then contents}
 					{#each contents || [] as content}
-						<ContentCard {content} handleSelectContent={selectContent} />
+						<ContentCard active={selectedContent?.id === content.id} {content} handleSelectContent={selectContent} />
 					{/each}
 				{/await}
 			</div>
