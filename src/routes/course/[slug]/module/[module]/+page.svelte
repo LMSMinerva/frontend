@@ -15,7 +15,7 @@
 	const instructionalItemsCompleted = 80;
 	const assessmentItemsCompleted = 20;
 
-	let modulo: CourseModule | null = $derived(data.module);
+	let modulo: CourseModule | null = $state(null);
 	let contents: Promise<Content[]> = $derived(data.contents);
 	let selectedContent: Content | null = $state(null);
 	let contentComments: Comment[] = $state([]);
@@ -30,10 +30,14 @@
 	}
 
 	$effect(() => {
-		console.log("Data changed", data);
+		modulo = null;
 		selectedContent = null
 		contentComments = [];
 		loadingComments = false;
+
+		data.module.then((m) => {
+			modulo = m;
+		});
 	});
 </script>
 
