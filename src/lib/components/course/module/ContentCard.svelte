@@ -74,8 +74,9 @@
 	tabindex="0"
 	onclick={() => handleSelectContent(content, contentCategory)}
 	onkeydown={() => handleSelectContent(content, contentCategory)}
-	class="flex gap-4 max-h-[300px] min-h-[100px] cursor-pointer rounded-lg border-2 border-neutral-50 bg-white p-4 shadow-md transition-all duration-300"
+	class="flex gap-4 max-h-[300px] min-h-[100px] cursor-pointer rounded-lg border bg-white p-4 shadow-md transition-all duration-300"
 	class:border-indigo-500={active}
+	class:border-neutral-200={!active}
 >
 	<div class="flex gap-2">
 		<div
