@@ -18,16 +18,17 @@
 	}
 </script>
 
-<div class="w-max-content flex cursor-pointer flex-col gap-4 rounded-lg bg-white p-4 shadow-md">
-	<div
+<div class="w-max-content flex flex-col gap-4 rounded-lg bg-white p-4 shadow-md">
+	<a
+		href="/course/{userCourse.alias}"
 		class="flex h-[153px] w-full items-center justify-center rounded-md bg-indigo-100 object-cover"
 	>
 		{#if userCourse.image !== ''}
-			<img src={userCourse.image} alt={userCourse.name} class="h-full w-full" />
+			<img src={userCourse.image} alt={userCourse.name} class="h-full w-full object-cover rounded" />
 		{:else}
 			<img src="/course-card-img-placeholder.svg" alt={userCourse.name} class="size-24" />
 		{/if}
-	</div>
+	</a>
 
 	<div class="flex flex-col gap-3">
 		<div class="flex items-center gap-2">
@@ -40,7 +41,9 @@
 			<span class="font-semibold text-zinc-500">{userCourse.institution.name}</span>
 		</div>
 
-		<h5 class="text-lg font-semibold">{userCourse.name}</h5>
+		<a href="/course/{userCourse.alias}">
+			<h5 class="text-lg font-semibold">{userCourse.name}</h5>
+		</a>
 
 		<div class="flex items-center justify-end gap-3 text-zinc-500">
 			<span class="flex items-center gap-1">

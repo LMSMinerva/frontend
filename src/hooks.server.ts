@@ -4,7 +4,7 @@ import { AuthCookies } from '$lib/server/auth';
 export const handle: Handle = async ({ event, resolve }) => {
 	const hasAuthCookies = AuthCookies.hasAuthCookies(event.cookies);
 	const authTokens = AuthCookies.getAuthTokens(event.cookies);
-	const isLogin = event.url.pathname === '/login' || event.url.pathname === '/authorize';
+	const isLogin = event.url.pathname === '/login' || event.url.pathname === '/authorize' || event.url.pathname === '/logout' || event.url.pathname === '/register';
 
 
 	if (isLogin) {

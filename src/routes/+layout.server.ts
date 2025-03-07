@@ -5,7 +5,7 @@ import { AuthCookies } from '$lib/server/auth';
 export const load = (async ({ cookies }) => {
 	const { accessToken, refreshToken } = AuthCookies.getAuthTokens(cookies);
 
-	const user: User | null = AuthCookies.getUserFromCookies(cookies);
+	const user = AuthCookies.getUserFromCookies(cookies);
 	return {
 		user,
 		accessToken,

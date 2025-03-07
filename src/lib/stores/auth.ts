@@ -1,10 +1,13 @@
 import type { Token } from '$lib/types/auth';
+import type { User } from '$lib/types/user';
 
 class AuthStore {
 	private authToken: Token = {
 		token: '',
 		refreshToken: ''
 	};
+
+	private user: User | null = null;
 
 	clearAuthToken() {
 		this.authToken = {
@@ -31,6 +34,18 @@ class AuthStore {
 
 	setRefreshToken(token: string) {
 		this.authToken.refreshToken = token;
+	}
+	
+	setUser(user: User) {
+		this.user = user;
+	}
+
+	deleteUser() {
+		this.user = null;
+	}
+
+	getUser() {
+		return this.user;
 	}
 
 	refresh() {}

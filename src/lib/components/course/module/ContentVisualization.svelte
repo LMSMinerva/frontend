@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Card } from '$lib/components/ui/card';
+	import * as Card from '$lib/components/ui/card/index.js';
 	import { CategoryStore } from '$lib/stores/category';
 	import type { Content } from '$lib/types/content';
+	import { CirclePlay, FileText, LoaderCircle, MessageCircleQuestion, Code } from 'lucide-svelte';
 
 	type Props = {
 		selectedContent: Content;
@@ -21,27 +22,51 @@
 		}
 	}
 
-	onMount(fetchContentCategory);
+	$effect(() => {
+		if (selectedContent) {
+			contentCategory = '';
+			fetchContentCategory();
+		}
+	})
 </script>
 
-<Card class="h-full p-4">
-	{#if contentCategory === 'pdf'}
-		<iframe
-			title={selectedContent.name}
-			src={selectedContent.body}
-			class="h-[500px] w-full rounded-lg border"
-		></iframe>
-	{:else if contentCategory === 'video'}
-		<iframe
-			class="h-[500px] w-full rounded-lg"
-			src={selectedContent.body}
-			title={selectedContent.name}
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerpolicy="strict-origin-when-cross-origin"
-			allowfullscreen
-		></iframe>
-	{:else}
-		<p class="text-center text-slate-700">Cargando contenido...</p>
-	{/if}
-</Card>
+<Card.Root class="h-full">
+	<Card.Header class="w-full">
+		<Card.Title class="flex gap-2">
+			{#if contentCategory === 'video'}
+				<CirclePlay />
+			{:else if contentCategory === 'pdf'}
+				<FileText />
+			{:else if contentCategory === 'seleccion'}
+				<MessageCircleQuestion />
+			{:else if contentCategory === 'codigo'}
+				<Code />
+			{:else}
+				<LoaderCircle class="animate-spin" />
+			{/if}
+			<span>{selectedContent.name}</span>
+		</Card.Title>
+	</Card.Header>
+
+	<Card.Content class="h-full">
+		{#if contentCategory === 'pdf'}
+			<iframe
+				title={selectedContent.name}
+				src={selectedContent.body}
+				class="h-[500px] w-full rounded-lg border"
+			></iframe>
+		{:else if contentCategory === 'video'}
+			<iframe
+				class="h-[500px] w-full rounded-lg"
+				src={selectedContent.body}
+				title={selectedContent.name}
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerpolicy="strict-origin-when-cross-origin"
+				allowfullscreen
+			></iframe>
+		{:else}
+			<p class="text-center text-slate-700">Cargando contenido...</p>
+		{/if}
+	</Card.Content>
+</Card.Root>

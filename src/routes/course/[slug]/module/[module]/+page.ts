@@ -12,11 +12,11 @@ export const load = (async ({ params }) => {
 	const moduleStore = new ModuleStore();
 	const contentStore = new ContentStore();
 
-	const module = await moduleStore.getModuleById(id);
-	const contents = contentStore.getContentsByModuleId((module as CourseModule).id);
+	const modulo = await moduleStore.getModuleById(id);
+	const contents = contentStore.getContentsByModuleId((modulo as CourseModule).id);
 
 	return {
-		module: module,
+		module: modulo,
 		contents: contents
 	};
 }) satisfies PageLoad;

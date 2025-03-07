@@ -75,47 +75,33 @@ export function getUserCourses() {
 	const inProgress: UserCourse[] = [];
 	const completed: UserCourse[] = [];
 	const available: UserCourse[] = [];
-	const mockCourses = [
-		{ name: 'Introducción a la Programación', alias: 'intro-programacion' },
-		{ name: 'Desarrollo Web con Vue.js', alias: 'vue-desarrollo-web' },
-		{ name: 'Bases de Datos SQL', alias: 'bases-datos-sql' },
-		{ name: 'Machine Learning Básico', alias: 'machine-learning-basico' },
-		{ name: 'Ciberseguridad para Principiantes', alias: 'ciberseguridad-inicial' },
-		{ name: 'Diseño UX/UI', alias: 'diseno-ux-ui' }
+
+	const userCourse: UserCourse = {
+		image: `/ed.jpg`,
+		name: "Estructuras de datos",
+		alias: "ed",
+		reviews: Math.floor(Math.random() * 100),
+		comments: Math.floor(Math.random() * 50),
+		rating: (Math.random() * 5).toFixed(1),
+		institution: {
+			id: "id",
+			name: "Universidad Nacional de Colombia",
+			description: "description",
+			url: "/un.png",
+			image: "/un.png",
+			icon: "icon",
+		},
+		progress: 35,
+	};
+
+	const mockCourses: UserCourse[] = [
+		userCourse
 	];
 
-	for (let i = 0; i < 18; i++) {
-		const course = mockCourses[i % mockCourses.length];
-		const userCourse: UserCourse = {
-			image: ``,
-			name: course.name,
-			alias: course.alias,
-			reviews: Math.floor(Math.random() * 100),
-			comments: Math.floor(Math.random() * 50),
-			rating: (Math.random() * 5).toFixed(1),
-			institution: {
-				name: [
-					'Universidad Nacional Autónoma de México',
-					'Universidad de Buenos Aires',
-					'Universidad Complutense de Madrid',
-					'Pontificia Universidad Católica de Chile',
-					'Universidad de los Andes',
-					'Universidad Politécnica de Valencia'
-				][i % 6],
-				image: ``
-			},
-			progress: Math.floor(Math.random() * 100)
-		};
-
-		if (i < 6) {
-			inProgress.push(userCourse);
-		} else if (i < 12) {
-			userCourse.progress = 100;
-			completed.push(userCourse);
-		} else {
-			userCourse.progress = 0;
-			available.push(userCourse);
-		}
+	for (const course of mockCourses) {
+		inProgress.push(course);
+		completed.push(course);
+		available.push(course);
 	}
 
 	return {
