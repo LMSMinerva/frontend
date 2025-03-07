@@ -13,7 +13,7 @@
 	const pendindActivities = [
 		{
 			curso: 'Fundamentos de programación',
-			actividad: 'Quiz 2: Ciclos for y while'
+			actividad: 'Quiz 1: Variables y condicionales'
 		},
 		{
 			curso: 'Fundamentos de programación',
@@ -21,7 +21,7 @@
 		},
 		{
 			curso: 'Fundamentos de programación',
-			actividad: 'Quiz 2: Ciclos for y while'
+			actividad: 'Quiz 3: Listas y diccionarios'
 		}
 	];
 </script>
@@ -48,8 +48,8 @@
 					<div class="items-top flex gap-2 rounded-md border-2 border-gray-200 p-4 py-4">
 						<Checkbox class="rounded-full" />
 						<div>
-							<p class="text-sm font-semibold">{pendingActivity.curso}</p>
-							<p class="text-xs text-gray-500">{pendingActivity.actividad}</p>
+							<p class="text-sm font-semibold">{pendingActivity.actividad}</p>
+							<p class="text-xs text-gray-500">{pendingActivity.curso}</p>
 						</div>
 					</div>
 				{/each}
