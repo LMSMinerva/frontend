@@ -15,8 +15,8 @@
 	const instructionalItemsCompleted = 80;
 	const assessmentItemsCompleted = 20;
 
-	const modulo: CourseModule | null = $state(data.module);
-	let contents: Promise<Content[]> = $state(data.contents);
+	let modulo: CourseModule | null = $derived(data.module);
+	let contents: Promise<Content[]> = $derived(data.contents);
 	let selectedContent: Content | null = $state(null);
 	let contentComments: Comment[] = $state([]);
 	let loadingComments = $state(false);
@@ -28,6 +28,13 @@
 		contentComments = await storeComments.fetchComments(content.id);
 		loadingComments = false;
 	}
+
+	$effect(() => {
+		console.log("Data changed", data);
+		selectedContent = null
+		contentComments = [];
+		loadingComments = false;
+	});
 </script>
 
 <div class="space-y-4">
