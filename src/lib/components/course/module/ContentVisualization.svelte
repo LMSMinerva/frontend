@@ -22,12 +22,12 @@
 		}
 	}
 
-	$effect(() => {
+	onMount(() => {
 		if (selectedContent) {
 			contentCategory = '';
 			fetchContentCategory();
 		}
-	})
+	});
 </script>
 
 <Card.Root class="h-full">

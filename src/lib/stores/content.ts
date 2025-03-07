@@ -1,4 +1,4 @@
-import type { Content, ContentInteraction } from '$lib/types/content';
+import type { Content, ContentInteraction, QuestionContent } from '$lib/types/content';
 import $api from '$lib/services/api';
 import { storeAuth } from './auth';
 import type { User } from '$lib/types/user';
@@ -72,6 +72,28 @@ export class ContentStore {
 				body: JSON.stringify(interaction)
 			});
 			return newInteraction;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	}
+
+	async getQuestionContentVisualization(contentId: string): Promise<QuestionContent | null> {
+		try {
+			const visualization = await $api(`/content/${contentId}/visualize/`);
+			return visualization;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	}
+
+	async checkAnswer(answer: string) {
+		try {
+			const correct = await $api(`/content/${answer}/result`, {
+				method: 'POST'
+			});
+			return correct;
 		} catch (error) {
 			console.error(error);
 			return null;

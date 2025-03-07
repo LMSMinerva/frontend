@@ -19,3 +19,8 @@ export type ContentInteraction = {
 	user: number;
 	content: string;
 }
+
+export type QuestionContent = {
+	enunciado: string;
+	respuestas: [];
+}
