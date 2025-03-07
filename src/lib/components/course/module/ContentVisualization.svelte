@@ -39,7 +39,7 @@
 			{:else}
 				<LoaderCircle class="animate-spin" />
 			{/if}
-			<span>Comentarios</span>
+			<span>{selectedContent.name}</span>
 		</Card.Title>
 	</Card.Header>
 
