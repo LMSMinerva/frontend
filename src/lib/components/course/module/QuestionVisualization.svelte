@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
-	import type { Content, QuestionContent } from '$lib/types/content';
+	import type { Content, QuestionAnswer, QuestionContent } from '$lib/types/content';
 	import { Button } from '$lib/components/ui/button';
 	import { ContentStore } from '$lib/stores/content';
 	import { LoaderCircle, MessageCircleQuestion } from 'lucide-svelte';
@@ -16,6 +16,7 @@
 	let isCorrectAnswer: boolean = $state(false);
 	let answerIsSelected: boolean = $state(false);
 
+	let loading: boolean = $state(false);
 	let questionVisualization: QuestionContent | null = $state(null);
 
 	const contentStore = new ContentStore();
@@ -33,13 +34,28 @@
 			answerIsSelected = false;
 			return;
 		} else {
-			const isCorrect = await contentStore.checkAnswer(selectedContent.id);
-			console.log(isCorrect);
+			loading = true;
+			const isCorrect: QuestionAnswer = await contentStore.checkAnswer(selectedContent.id, [
+				selectedAnswer
+			]);
+			loading = false;
+			isCorrectAnswer = isCorrect.results[selectedAnswer];
+			answerIsSelected = true;
+			showResult = true;
 		}
 	}
 
+	function retry() {
+		showResult = false;
+		isCorrectAnswer = false;
+		answerIsSelected = false;
+		selectedAnswer = '';
+		questionVisualization = null;
+		getQuestionVisualization();
+	}
+
 	$effect(() => {
-        selectedAnswer = '';
+		selectedAnswer = '';
 		if (selectedContent) {
 			getQuestionVisualization();
 		}
@@ -82,7 +98,7 @@
 
 						{#if showResult}
 							{#if isCorrectAnswer && answerIsSelected}
-								{#if response.correcta}
+								{#if response[0] === selectedAnswer}
 									<i class="bi bi-check-circle-fill text-green-500"></i>
 								{/if}
 							{:else if !isCorrectAnswer && answerIsSelected}
@@ -99,8 +115,15 @@
 				<p class="mt-4 text-sm text-red-500">Debes seleccionar una respuesta</p>
 			{/if}
 
-			<div class="mt-4 flex justify-end">
-				<Button onclick={() => handleSubmit(selectedAnswer)}>Enviar respuesta</Button>
+			<div
+				class="mt-4 flex {!isCorrectAnswer && answerIsSelected ? `justify-between` : `justify-end`}"
+			>
+				{#if !isCorrectAnswer && answerIsSelected}
+					<Button onclick={retry}>Intentar de nuevo</Button>
+				{/if}
+				<Button onclick={() => handleSubmit(selectedAnswer)}
+					>{loading ? 'Evaluando...' : 'Enviar respuesta'}
+				</Button>
 			</div>
 		{:else}
 			<p class="text-center text-slate-700">Cargando pregunta...</p>

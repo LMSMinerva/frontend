@@ -88,10 +88,11 @@ export class ContentStore {
 		}
 	}
 
-	async checkAnswer(answer: string) {
+	async checkAnswer(contentId: string, selected: string[]) {
 		try {
-			const correct = await $api(`/content/${answer}/result`, {
-				method: 'POST'
+			const correct = await $api(`/content/${contentId}/result`, {
+				method: 'POST',
+				body: JSON.stringify({ selected: selected })
 			});
 			return correct;
 		} catch (error) {

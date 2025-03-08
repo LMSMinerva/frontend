@@ -78,20 +78,30 @@
 					<Skeleton class="h-full w-full bg-gray-200" />
 				{:then contents}
 					{#each contents || [] as content}
-						<ContentCard active={selectedContent?.id === content.id} {content} handleSelectContent={selectContent} />
+						<ContentCard
+							active={selectedContent?.id === content.id}
+							{content}
+							handleSelectContent={selectContent}
+						/>
 					{/each}
 				{/await}
 			</div>
 			<div class="col-span-7 flex flex-col gap-4">
 				{#if selectedContent}
 					{#if contentCategory === 'seleccion'}
-						<QuestionVisualization selectedContent={selectedContent} contentCategory={contentCategory} />
+						<QuestionVisualization {selectedContent} {contentCategory} />
 					{:else}
 						<ContentVisualization {selectedContent} />
 					{/if}
-					<CommentsComponent comments={contentComments} content={selectedContent} isLoading={loadingComments}/>
+					<CommentsComponent
+						comments={contentComments}
+						content={selectedContent}
+						isLoading={loadingComments}
+					/>
 				{:else}
-					<Card class="h-full p-4 text-center text-gray-500">Selecciona un contenido para ver más detalles.</Card>
+					<Card class="h-full p-4 text-center text-gray-500"
+						>Selecciona un contenido para ver más detalles.</Card
+					>
 				{/if}
 			</div>
 		</div>

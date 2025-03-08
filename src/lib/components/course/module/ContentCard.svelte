@@ -74,7 +74,7 @@
 	tabindex="0"
 	onclick={() => handleSelectContent(content, contentCategory)}
 	onkeydown={() => handleSelectContent(content, contentCategory)}
-	class="flex gap-4 max-h-[300px] min-h-[100px] cursor-pointer rounded-lg border bg-white p-4 shadow-md transition-all duration-300"
+	class="flex max-h-[300px] min-h-[100px] cursor-pointer gap-4 rounded-lg border bg-white p-4 shadow-md transition-all duration-300"
 	class:border-indigo-500={active}
 	class:border-neutral-200={!active}
 >
@@ -98,12 +98,12 @@
 		</div>
 	</div>
 
-	<div class="flex flex-col w-full gap-1">
+	<div class="flex w-full flex-col gap-1">
 		<h5 class="text-lg font-semibold">{content.name}</h5>
 
 		<p class="overflow-hidden text-ellipsis text-muted-foreground">{content.description}</p>
 
-		<div class="flex items-center justify-start gap-3 text-zinc-500 mt-4">
+		<div class="mt-4 flex items-center justify-start gap-3 text-zinc-500">
 			<span class="flex items-center gap-1">
 				<i class="bi bi-award"></i>
 				<span>{content.reviews}</span>
@@ -121,7 +121,7 @@
 			>
 				<span class="flex items-center gap-1">
 					<i class={`bi ${userRating ? 'bi-star-fill text-yellow-500' : 'bi-star'}`}></i>
-					<span>{content?.rating || "..."} (30)</span>
+					<span>{content?.rating || '...'} (30)</span>
 				</span>
 			</RateTooltip>
 		</div>

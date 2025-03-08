@@ -24,3 +24,7 @@ export type QuestionContent = {
 	enunciado: string;
 	respuestas: [];
 }
+
+export type QuestionAnswer = {
+	results: Record<string, boolean>;
+}
