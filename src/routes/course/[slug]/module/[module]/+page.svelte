@@ -33,6 +33,7 @@
 		contentComments = await storeComments.fetchComments(content.id);
 		loadingComments = false;
 
+		contentCategory = "";
 		const category = await categoryStore.getContentCategory(content.content_type);
 		contentCategory = category?.name || '';
 	}

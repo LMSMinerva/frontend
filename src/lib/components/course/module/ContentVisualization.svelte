@@ -22,7 +22,7 @@
 		}
 	}
 
-	onMount(() => {
+	$effect(() => {
 		if (selectedContent) {
 			contentCategory = '';
 			fetchContentCategory();
