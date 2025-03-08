@@ -9,25 +9,45 @@
 	import CommentsComponent from '$lib/components/kit/comments/Comments.svelte';
 	import type { Comment } from '$lib/types/comment';
 	import { CommentStore } from '$lib/stores/comments';
+	import { CategoryStore } from '$lib/stores/category';
+	import QuestionVisualization from '$lib/components/course/module/QuestionVisualization.svelte';
 
 	let { data }: { data: PageData } = $props();
 
 	const instructionalItemsCompleted = 80;
 	const assessmentItemsCompleted = 20;
 
-	const modulo: CourseModule | null = $state(data.module);
-	let contents: Promise<Content[]> = $state(data.contents);
+	let modulo: CourseModule | null = $state(null);
+	let contents: Promise<Content[]> = $derived(data.contents);
 	let selectedContent: Content | null = $state(null);
 	let contentComments: Comment[] = $state([]);
 	let loadingComments = $state(false);
 
+	let contentCategory: string = $state('');
+
 	const storeComments = new CommentStore();
+	const categoryStore = new CategoryStore();
 	async function selectContent(content: Content) {
 		selectedContent = content;
 		loadingComments = true;
 		contentComments = await storeComments.fetchComments(content.id);
 		loadingComments = false;
+
+		contentCategory = "";
+		const category = await categoryStore.getContentCategory(content.content_type);
+		contentCategory = category?.name || '';
 	}
+
+	$effect(() => {
+		modulo = null;
+		selectedContent = null
+		contentComments = [];
+		loadingComments = false;
+
+		data.module.then((m) => {
+			modulo = m;
+		});
+	});
 </script>
 
 <div class="space-y-4">
@@ -70,16 +90,30 @@
 					<Skeleton class="h-full w-full bg-gray-200" />
 				{:then contents}
 					{#each contents || [] as content}
-						<ContentCard active={selectedContent?.id === content.id} {content} handleSelectContent={selectContent} />
+						<ContentCard
+							active={selectedContent?.id === content.id}
+							{content}
+							handleSelectContent={selectContent}
+						/>
 					{/each}
 				{/await}
 			</div>
 			<div class="col-span-7 flex flex-col gap-4">
 				{#if selectedContent}
-					<ContentVisualization {selectedContent} />
-					<CommentsComponent comments={contentComments} content={selectedContent} isLoading={loadingComments}/>
+					{#if contentCategory === 'seleccion'}
+						<QuestionVisualization {selectedContent} {contentCategory} />
+					{:else}
+						<ContentVisualization {selectedContent} />
+					{/if}
+					<CommentsComponent
+						comments={contentComments}
+						content={selectedContent}
+						isLoading={loadingComments}
+					/>
 				{:else}
-					<Card class="h-full p-4 text-center text-gray-500">Selecciona un contenido para ver más detalles.</Card>
+					<Card class="h-full p-4 text-center text-gray-500"
+						>Selecciona un contenido para ver más detalles.</Card
+					>
 				{/if}
 			</div>
 		</div>

@@ -12,8 +12,8 @@ export const load = (async ({ params }) => {
 	const moduleStore = new ModuleStore();
 	const contentStore = new ContentStore();
 
-	const modulo = await moduleStore.getModuleById(id);
-	const contents = contentStore.getContentsByModuleId((modulo as CourseModule).id);
+	const modulo = moduleStore.getModuleById(id);
+	const contents = contentStore.getContentsByModuleId(id);
 
 	return {
 		module: modulo,

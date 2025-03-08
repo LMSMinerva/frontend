@@ -1,5 +1,4 @@
 import { AuthCookies } from '$lib/server/auth';
-import { adminSecret } from '$lib/utils/constants';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';

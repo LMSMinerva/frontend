@@ -27,7 +27,7 @@
 			contentCategory = '';
 			fetchContentCategory();
 		}
-	})
+	});
 </script>
 
 <Card.Root class="h-full">
