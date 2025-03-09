@@ -77,7 +77,7 @@ export function getUserCourses() {
 	const available: UserCourse[] = [];
 
 	const userCourse: UserCourse = {
-		image: `/ed.jpg`,
+		image: `/ds.jpg`,
 		name: "Estructuras de datos",
 		alias: "ed",
 		reviews: Math.floor(Math.random() * 100),
@@ -95,7 +95,7 @@ export function getUserCourses() {
 	};
 
 	const userCourse2: UserCourse = {
-		image: `/ed.jpg`,
+		image: `/oop.jpeg`,
 		name: "Programacion Orientada a Objetos",
 		alias: "ed",
 		reviews: Math.floor(Math.random() * 100),
@@ -113,7 +113,7 @@ export function getUserCourses() {
 	};
 
 	const userCourse3: UserCourse = {
-		image: `/ed.jpg`,
+		image: `/py.jpg`,
 		name: "Fundamentos de Programacion",
 		alias: "ed",
 		reviews: Math.floor(Math.random() * 100),
