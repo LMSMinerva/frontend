@@ -77,7 +77,7 @@ export function getUserCourses() {
 	const available: UserCourse[] = [];
 
 	const userCourse: UserCourse = {
-		image: `/ed.jpg`,
+		image: `/ds.jpg`,
 		name: "Estructuras de datos",
 		alias: "ed",
 		reviews: Math.floor(Math.random() * 100),
@@ -94,8 +94,46 @@ export function getUserCourses() {
 		progress: 35,
 	};
 
+	const userCourse2: UserCourse = {
+		image: `/oop.jpeg`,
+		name: "Programacion Orientada a Objetos",
+		alias: "ed",
+		reviews: Math.floor(Math.random() * 100),
+		comments: Math.floor(Math.random() * 50),
+		rating: (Math.random() * 5).toFixed(1),
+		institution: {
+			id: "id",
+			name: "Universidad Nacional de Colombia",
+			description: "description",
+			url: "/un.png",
+			image: "/un.png",
+			icon: "icon",
+		},
+		progress: 78,
+	};
+
+	const userCourse3: UserCourse = {
+		image: `/py.jpg`,
+		name: "Fundamentos de Programacion",
+		alias: "ed",
+		reviews: Math.floor(Math.random() * 100),
+		comments: Math.floor(Math.random() * 50),
+		rating: (Math.random() * 5).toFixed(1),
+		institution: {
+			id: "id",
+			name: "Universidad Nacional de Colombia",
+			description: "description",
+			url: "/un.png",
+			image: "/un.png",
+			icon: "icon",
+		},
+		progress: 10,
+	};
+
 	const mockCourses: UserCourse[] = [
-		userCourse
+		userCourse,
+		userCourse2,
+		userCourse3,
 	];
 
 	for (const course of mockCourses) {
