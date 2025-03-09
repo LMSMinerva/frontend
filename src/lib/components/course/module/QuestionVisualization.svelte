@@ -115,15 +115,19 @@
 				<p class="mt-4 text-sm text-red-500">Debes seleccionar una respuesta</p>
 			{/if}
 
-			<div
-				class="mt-4 flex {!isCorrectAnswer && answerIsSelected ? `justify-between` : `justify-end`}"
-			>
+			<div class="mt-4 flex justify-end">
 				{#if !isCorrectAnswer && answerIsSelected}
 					<Button onclick={retry}>Intentar de nuevo</Button>
+				{:else}
+					<Button onclick={() => handleSubmit(selectedAnswer)} disabled={loading}>
+						{#if loading}
+							<span>Evaluando respuesta...</span>
+							<i class="bi bi-arrow-repeat animate-spin leading-none"></i>
+						{:else}
+							<span>Enviar respuesta</span>
+						{/if}
+					</Button>
 				{/if}
-				<Button onclick={() => handleSubmit(selectedAnswer)}
-					>{loading ? 'Evaluando...' : 'Enviar respuesta'}
-				</Button>
 			</div>
 		{:else}
 			<p class="text-center text-slate-700">Cargando pregunta...</p>
